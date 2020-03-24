@@ -1,2 +1,2 @@
 # javascript-
-js学习笔记
+一起来学习JavaScript
