@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			 var str = "1a2b3c4d5e6f7g";
+			var arr1 = str.split(4);
+			console.log(arr1,arr1.length);//["1a2b3c","d5e6f7g"] 2
+			var arr2 = str.split(/[A-z]/);
+			console.log(arr2, arr2.length);
+			//search 
+			console.log("====search=====")
+			var str2 = "hello world I am coming!";
+			console.log(str2.search("world"));//6
+			console.log(str2.search("word"));//-1
+			//搜素字符中是否含有abc或者acc或者adc
+			var str3 = "hello abc acc adc";
+			console.log(str3.search(/a[b-c]c/));//6
+			console.log("123456".search(/a[b-c]c/));-1
+			console.log(str.match("a"));
+			console.log(str.match(/[a-z]/gi));
+			//replace
+			console.log(str.replace(/[ac]/g, "*"));
+			console.log(str.replace(/[0-9]/g, ""));
+			//正则表达式的量词
+			console.log("===量词======");
+			var reg7 = /a{3}/;
+			console.log(reg7.test("aab"));//false
+			console.log(reg7.test("aaab"));//true
+			reg7 = /ab{2}/;
+			console.log(reg7.test("abab"));//false
+			console.log(reg7.test("abb"));//true
+			reg7 = /(ab){2}/;
+			console.log(reg7.test("abab"));//true
+			reg7 = /ab{3}c/;
+			console.log(reg7.test("abbbcc"));//true
+			console.log(reg7.test("aabbbbc"));//false只要求三个b
+			reg7 = /ab{1,3}c/;//表示1-3个b都能满足
+			console.log(reg7.test("abbbbcc"));//false
+			console.log(reg7.test("abbbcc"));//true
+			console.log(reg7.test("abbcc"));//true
+			console.log(reg7.test("abcc"));//true
+			console.log(reg7.test("acc"));//false
+			//电话号码的正则表达式
+			console.log("====电话号码的正则表达式====");
+			var reg8 = /^1[3-9][0-9]{9}$/;
+			console.log(reg8.test("12235893641"));//false
+			console.log(reg8.test("13087563214"));//true
+			//特殊字符
+			console.log("====特殊字符====");
+			var reg9 = /./;
+			console.log(reg9.test(" "));
+			reg9 = /\./;
+			console.log(reg9.test("a"));//false
+			console.log(reg9.test("ab.v"));//true
+			//去除开头结尾空格
+			var strSpace = "     hello world   ";
+			console.log(strSpace);
+			console.log(strSpace.replace(/^\s*|\s*$/g, ""));
+		</script>
+	</body>
+</html>

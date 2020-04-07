@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+        var array = new Array("后羿", "亚瑟");
+		console.log(array);
+		var newLength1 =array.push("妲己", "项羽");
+        console.log(array);
+        console.log(newLength1);//4
+		//pop
+		array.pop();
+		var popVal = array.pop();
+		console.log(popVal);//"妲己"
+		console.log(array)//["后羿","亚瑟"]
+		//unshift
+		var newLength2 = array.unshift("猪八戒","孙悟空");
+        console.log(newLength2);
+        console.log(array);//
+		//shift
+		var shiftElement = array.shift();
+        console.log(shiftElement);//"猪八戒"
+		//forEach
+		array.forEach(function(parameter){
+		        console.log("Element = "+parameter);
+		    });
+		array.forEach(function(value, index, arr){
+			console.log("元素为:"+value);
+			console.log("索引为:"+index);
+			console.log(array == arr);
+		})
+		//slice
+		var character = ["猪八戒", "孙悟空", "后羿", "亚瑟","韩信","李白"];
+        var sliceArray = character.slice(1,3);
+        console.log(sliceArray);
+		var sliceArray2 = character.slice(1);
+        console.log(sliceArray2);//["孙悟空", "后羿", "亚瑟","韩信","李白"]
+		var sliceArray3 = character.slice(1,1);
+		console.log(sliceArray3);//[]
+		var sliceArray4 = character.slice(0,-3);
+        console.log(sliceArray4);
+        var spliceArray = character.splice(1,2);
+		console.log("=====splice=====");
+        console.log(spliceArray);
+        console.log(character);
+        spliceArray2 = character.splice(1,0,"孙悟空","后羿");
+        console.log(spliceArray2);
+		console.log(character);
+		</script>
+	</body>
+</html>

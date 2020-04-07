@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var arr = new Array();
+			console.log(arr);
+			arr[0] = 10;
+			arr[1] = 100;
+			console.log(arr);
+			console.log(arr[0]);//10
+			console.log(arr[2]);//undefined
+			console.log(arr.length);//2
+			arr.length = 4;
+			console.log(arr);
+			arr[3] = 22;
+			console.log(arr);
+			arr[arr.length] = 5;
+			arr[arr.length] = 6;
+			console.log(arr);
+			//
+			var arr2 = [1,3,22];
+			console.log(arr2);
+			//使用构造函数创建数组也可以直接赋值，值之间用逗号隔开
+			var arr3 = new Array(1,2,3,4);//长度为4
+			console.log(arr3);
+			var arr4 = [10];//长度为1，只有一个元素10
+			console.log(arr4);
+			var arr5 = new Array(10);//长度为10，内容全部为空
+			console.log(arr5);
+			console.log("==========");
+			arr2 = [1, {name: "后羿"}, {name: "妲己", age: 18},function fun(){console.log("hhhh");}, [1,2,3]];
+			console.log(arr2[1].name);//后羿
+			console.log(arr2[2]);//{name: "妲己", age: 18}
+			arr2[3]();//hhh
+			console.log(arr2[4][1]);//2
+		</script>
+	</body>
+</html>

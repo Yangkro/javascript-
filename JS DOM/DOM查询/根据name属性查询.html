@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" name="input" id="btn" value="我是一个按钮" />
+		<input type="text" name="input" value="请输入姓名">
+		<script type="text/javascript">
+			//根据name属性进行查找
+			var getInput = document.getElementsByName("input");
+			console.log(getInput);
+			for(var i = 0; i < getInput.length; i++){
+				console.log(getInput[i]);
+				console.log(getInput[i].value);
+			}
+		</script>
+	</body>
+</html>

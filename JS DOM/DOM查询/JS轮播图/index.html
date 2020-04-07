@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/index.css">
+		<script type="text/javascript">
+			window.onload = function(){
+				//1.放在最上面，要使用onload事件，确保代码执行时所有的DOM对象已经完成加载
+				//2.首先先获取p img和两个按钮
+				var text = document.getElementsByName("text")[0];//ByName获取的是含有相同name值的标签的集合
+				var images = document.querySelector(".img");//采用H5新增方法中的querySelector，返回第一个元素对象
+				var prevButton = document.getElementById("prev");//ById是获取单个对象
+				var nextButton = document.getElementsByTagName("button")[1];//ByTagName方法获取的是相同标签名的集合
+				//获取li
+				var getLi = document.getElementsByTagName("li");
+				//创建图片SRC数组
+				var imagesArray = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg", "img/6.jpeg", "img/7.jpg", "img/8.jpg"];
+				console.log(imagesArray.length);
+				//创建索引
+				var index = 0;
+				
+				//3.为这两个按钮，添加单机事件
+				prevButton.onclick = function(){
+					index --;
+					if(index < 0){
+						index = imagesArray.length-1;
+					}
+					//创建P中的文本
+				text.innerHTML = "共有"+imagesArray.length+"张图片，当前是第"+(index+1)+"张图片";
+				//改变图片src
+				images.src = imagesArray[index];
+				//变成对应的li
+				// getLi[index].style.backgroundColor = "red";
+				}
+				nextButton.onclick = function(){
+					index ++;
+					if(index >= imagesArray.length){
+						index = 0;
+					}
+					//创建P中的文本
+					text.innerHTML = "共有"+imagesArray.length+"张图片，当前是第"+(index+1)+"张图片";
+					//改变图片src
+					images.src = imagesArray[index];
+					// getLi[index].style.backgroundColor = "red";
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<p name="text"></p>
+			<img src="img/1.jpg" alt="1" id="img" class="img">
+			<button id="prev"> < </button>
+			<button id="next"> > </button>
+			<ul class="prom-nav">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 利用原型对象 将一个对象的公共方法和属性，放在一起，减少每创建一个实例必须创建公共方法和属性的内存占用问题 -->
+		<script type="text/javascript">
+			function Student(name, age, gender){
+				this.name = name;
+				this.age = age;
+				this.gender = gender;
+				// this.sayName = sayName;进行改进
+			}
+			// function sayName(){
+			// 	console.log("hello I'm "+this.name);
+			// }
+			function Teacher(name, age, gender){
+				this.name = name;
+				this.age = age;
+				this.gender = gender;
+			}
+			var stu1 = new Student("Tom", 18, "male");
+			var stu2 = new Student("Marry", 18, "famale");
+			stu2.grade = "2019级";
+			var stu3 = new Student();
+			console.log(stu1 == stu2);//false
+			//向prototype中添加属性
+			Student.prototype.grade = "2020级";
+			//向原型对象中添加公共方法
+			Student.prototype.sayHello = function(){
+				console.log(("hello"));
+			}
+			//添加公共方法sayName
+			Student.prototype.sayName = function(){
+				console.log("hello I'm "+this.name);
+			}
+			//不要写成Student().prototype，类和函数要区分开
+			console.log(Student.prototype);
+			//不同函数的公共原型对象不同，因为地址不同
+			console.log(Student.prototype == Teacher.prototype);
+			//相同对象的实例的__proto__地址相同，所以判等为true
+			console.log(stu1.__proto__ == stu2.__proto__);//true
+			console.log(Student.prototype.grade);
+			console.log(Student.grade);//undefined，不可以通过类直接访问
+			console.log(stu1.grade);//可以直接访问，满足就近原则
+			console.log(stu2.grade);//会优先在自己的作用域中寻找，没有的话再去公共原型对象中
+			console.log(stu2.sayName());
+			console.log("grade" in stu3);//true 对象中没有，但是原型对象中，所有true
+			console.log(stu3.hasOwnProperty("name"));//true
+			console.log(stu3.hasOwnProperty("sayHello"));//false
+			console.log("原型对象中有sayHello属性"+stu3.__proto__.hasOwnProperty("sayHello"));
+			console.log(stu3.__proto__.hasOwnProperty("hasOwnProperty"));//false
+			//原型的原型中查找属性
+			console.log(stu3.__proto__.__proto__.hasOwnProperty("hasOwnProperty"));//true
+			console.log("直接打印stu1"+stu1);//[object, Object]
+			console.log("调用toSting()方法打印"+stu1.toString());//[object, Object]
+			//对stu2的toString()进行重写后调用
+			stu2.toString = function(){
+				return "我是"+this.name+"，我"+this.age+"岁了";
+			};
+			console.log(stu2.toString());
+		</script>
+	</body>
+</html>

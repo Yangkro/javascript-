@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var reg1 = new RegExp("a");
+			console.log(reg1, typeof reg1);//
+			console.log(reg1.test("a"));//true
+			console.log(reg1.test("qddaa"));//true
+			console.log(reg1.test("qwer"));//false
+			console.log(reg1.test("Abc"));//false
+			console.log("=======")
+			var reg2 = new RegExp("a", "i");
+			console.log(reg2.test("qddaa"));//true
+			console.log(reg2.test("qwer"));//false
+			console.log(reg2.test("Abc"));//true
+			console.log("====字面量创建正则表达式===");
+			var reg3 = /a|b/;//表示查找字符串中是佛含有a或者b
+			console.log(reg3.test("acde"));
+			console.log(reg3.test("bcde"));
+			console.log(reg3.test("abcedet"));
+			console.log(reg3.test("frgg"));//false
+			var reg4 = /[ab]/;
+			console.log(reg4.test("acd"));//true
+			console.log(reg4.test("bcd"));true
+			console.log(reg4.test("abcedet"));//true
+			console.log(reg4.test("frgg"));//false
+			var reg5 = /[a-z]/;//表示a-z的字母，即小写字母
+			console.log(reg5.test("12345"));//flase
+			console.log(reg5.test("a12456"));//true
+			var reg6 = /[^A-z]/;//表示除字母外的所有字符
+			console.log(reg6.test("12345"));//true
+			console.log(reg6.test("./,,)*&*^%"));//true
+			console.log(reg6.test("ac123"));//true
+			console.log(reg6.test("avffdfv"));//false
+		</script>
+	</body>
+</html>

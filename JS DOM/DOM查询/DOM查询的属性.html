@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul id="ul1">
+			<li>昨夜御风凋碧树1</li>
+			<li id="ul1-li2">昨夜御风凋碧树2</li><li>昨夜御风凋碧树3</li>
+			<li>昨夜御风凋碧树4</li>
+		</ul>
+		<script type="text/javascript">
+			var ul1 = document.getElementById("ul1");
+			console.log(ul1.childElementCount);//表示有4个子元素
+			//获取当前元素的所有子元素，不包含空白文档节点，但是只兼容IE+
+			console.log(ul1.children);//HTMLCollection(4) [li, li, li, li]
+			//获取当前元素的子节点，会将空白当做文档子节点
+			console.log(ul1.childNodes);//[text, li, text, li, text, li, text, li, text] 其中text为文档节点
+			//获取当前元素节点的第一个子节点
+			console.log(ul1.firstChild);//#text
+			//获取当前元素节点的第一个子元素节点
+			console.log(ul1.firstElementChild);//<li>昨夜御风凋碧树1</li>
+			//获取当前元素节点的最后一个子节点
+			console.log(ul1.lastChild);//#text
+			//获取当前节点的最后一个子元素节点
+			console.log(ul1.lastElementChild);//<li>昨夜御风凋碧树4</li>
+			console.log("=====孩子====");
+			var ul1Li2 = document.getElementById("ul1-li2");
+			console.log(ul1Li2);
+			//获取其父亲节点
+			console.log(ul1Li2.parentNode);
+			//获取其父亲元素，会忽视空白文档节点
+			console.log(ul1Li2.parentElement);
+			//获取当前节点的前一个兄弟节点
+			console.log(ul1Li2.previousSibling);//#text 返回的是空白节点text
+			//获取当前节点的前一个兄弟元素节点
+			console.log(ul1Li2.previousElementSibling)//<li>昨夜御风凋碧树1</li>
+			//获取当前元素的后一个兄弟节点
+			console.log(ul1Li2.nextSibling)// 没有空格所以，其后一个兄弟节点为<li>昨夜御风凋碧树3</li>
+			//获取当前元素的后一个兄弟元素节点
+			console.log(ul1Li2.nextElementSibling)//<li>昨夜御风凋碧树3</li>
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li>昨夜雨疏风骤1</li>
+			<li>昨夜雨疏风骤2</li>
+			<li>昨夜雨疏风骤3</li>
+			<li>昨夜雨疏风骤4</li>
+		</ul>
+		<ol>
+			<li>浓醉不消残酒1</li>
+			<li>浓醉不消残酒2</li>
+			<li>浓醉不消残酒3</li>
+			<li>浓醉不消残酒4</li>
+		</ol>
+		<script type="text/javascript">
+			//通过标签名查询返回的是对象集合，以伪数组的形式储存，在文档中没有找到则返回一个空集合
+			console.log(document.getElementsByTagName("div"))//[] 文档中没有div
+			var getLi = document.getElementsByTagName("li");//这样会获取全部的li
+			console.log(getLi);//[li, li, li, li, li, li, li, li] 具体操作元素得根据索引操作
+			console.log( getLi[3]);//<li>昨夜雨疏风骤4</li>
+			//如果需要对单个元素进行操作可以采用遍历或者根据索引获取元素,不是数组所以不可以采用forEach遍历
+			// getLi.forEach(function(value, index){
+			// 	console.log(value);
+			// 	console(index);
+			// })
+			for(var i = 0; i < getLi.length; i++){
+				console.log(getLi[i]);
+			}
+			//获取ol中的li
+			var getOl = document.getElementsByTagName("ol");
+			console.log(getOl);//[ol] 集合中元素个数为1，长度为1
+			console.log(getOl.li);//undefined 因为li不是对象ol的属性或者方法
+			var getOlLi = getOl[0].getElementsByTagName("li");
+			console.log(getOlLi);//[li, li, li, li]
+			for(var i = 0; i < getOlLi.length; i++){
+				console.log(getOlLi[i]);
+			}
+		</script>
+	</body>
+</html>

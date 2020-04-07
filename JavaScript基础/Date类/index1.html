@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		var d = Date.now()
+		console.log("运行前时间戳"+ d)
+		var d1 = new Date();//获取当前时间
+		console.log(d1);
+		var d2 = new Date("04/3/2020 10:32:23");
+		console.log(d2)
+		console.log(d2.getDate());//获取当前是几号
+		console.log(d2.getDay());
+		console.log(d2.getMonth());//3
+		console.log(d2.getFullYear());//2020
+		console.log(d2.getYear());//120
+		console.log(d2.getTime());//
+		console.log(d2.getTime());
+		var d3 = Date.now()
+		console.log("运行后时间戳"+ d3);
+		console.log(d3 - d);
+		//math
+		console.log("=====Math=====");
+		for(var i = 0; i < 5; i++){
+			//生成0-10之间的随机数
+			console.log(Math.round(Math.random()*10));
+			console.log("=====");
+			console.log(Math.round(Math.random()*9+1));//生成1-10包含1和10的随机数
+		}
+	</script>
+</body>
+</html>
