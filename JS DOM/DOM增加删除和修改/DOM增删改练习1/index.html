@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>添加删除记录练习</title>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<script type="text/javascript">
+	var dealA = function() {
+		//将其放在onload函数之外的目的是，优先解析，放在里面也可以
+		//添加点击函数
+		//获取需要删除的单元行
+		var row = this.parentNode.parentNode;
+		//单级响应函数在单击的时候才执行，其他内容是在页面加载完成后执行，所以不能用allA[i],因为此时的i=allA.length
+		//获取需要删除者的姓名
+		var name = row.firstElementChild.innerText;
+		var flag = confirm("确定删除"+name);
+		 if(flag){
+			//删除该行
+			row.parentNode.removeChild(row);
+			}
+				
+		//因为是a标签，点击后会跳转其他界面，为了让其不跳转，添加return false或者将href值改为javascript:;
+		return false;
+	}
+	window.onload = function(){
+		//点击delete删除目标行
+		//步骤：为每一个超链接绑定一个点击事件 获取删除目标行，然后删除节点
+		var allA = document.getElementsByTagName("a");
+		for(var i = 0; i < allA.length; i++){
+			allA[i].onclick = dealA;
+		}
+		//添加新员工
+		//复习一下前面学习的正则表达式，使用onchange DOM事件，来对输入的内容进行判断
+		var empName = document.getElementById("empName");
+		empName.onchange = function(){
+			//定义姓名的正则表达式 定义姓名必须由字母构成，而且开头字母大写
+			var regName = /^[A-Z][A-z]{1,}$/;
+			var isName = regName.test(empName.value);
+			if(!isName){
+				alert("您的姓名输入格式有误，请重新输入");
+				empName.value = "";
+				//输入错误的用户名会自动提示，并且获取焦点
+				empName.focus();
+			}
+		}
+		//为电子邮件设置正则表达式
+		var getEmail = document.getElementById("email");
+		getEmail.onchange = function(){
+			var regEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+			var isEmail = regEmail.test(getEmail.value);
+			if(!isEmail) {
+				alert("您输入的电子邮件格式错误，请检查");
+				getEmail.focus();
+			}
+		}
+		//为salary设置正则表达式 开头数字为2-9，后面数字为0-9至少四位，希望学这个的同学月薪都不会太低啦~
+		var getSalary = document.getElementById("salary");
+		getSalary.onchange = function() {
+			var regSalary = /^[1-9][0-9]{4,}$/;
+			var isHeighSalary = regSalary.test(getSalary.value);
+			if(!isHeighSalary) {
+				alert("您的工资输入格式有误，请检查");
+				getSalary.focus();
+			}
+		}
+		//此举并非为了完善表单，而是复习正则表达式
+		var submit = document.getElementById("addEmpButton");
+		submit.onclick = function(){
+			//创建新的表单行
+			//获取表单中的内容，不可以放在onclick的外面，因为那是在文档加载完成立刻获取，所有value为空
+			var name =document.getElementsByName("empName")[0].value;
+			var email = document.getElementById("email").value;
+			var salary = document.getElementById("salary").value;
+			var newTr = document.createElement("tr");
+			//向新的表单行中添加内容
+			newTr.innerHTML = "<td>"+name+"</td>"+
+							  "<td>"+email+"</td>"+
+							  "<td>"+salary+"</td>"+
+							  "<td><a href='javascript:;'>Delete</a></td>";
+			//为新建的单元行绑定删除函数
+			var newA = newTr.getElementsByTagName("a")[0];
+			newA.onclick = dealA;
+			/*
+			坑：文档中没有tbody标签元素，但是浏览器渲染的时候会自动添加，我们要将需要添加的代码添加到tbody中
+				如果直接加在table中可能会导致CSS渲染时的样式不一样
+			*/
+		   var getTable = document.getElementById("employeeTable");
+		   //获取tbody
+		   var getTbody = getTable.getElementsByTagName("tbody")[0];
+		   // console.log(getTbody);
+		   //将新建的单元行，添加到tbody中(添加子节点)
+		   getTbody.appendChild(newTr);
+		   /*
+		   也可以使用直接在tbody中加HTML的方法，但是不推荐，因为改动太大，影响性能
+		   getTbody.innerHTML +="……";
+		   */
+		  
+		}
+	}
+</script>
+</head>
+<body>
+
+	<table id="employeeTable">
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Salary</th>
+			<th>&nbsp;</th>
+		</tr>
+		<tr>
+			<td>Tom</td>
+			<td>tom@tom.com</td>
+			<td>5000</td>
+			<td><a href="deleteEmp?id=001">Delete</a></td>
+		</tr>
+		<tr>
+			<td>Jerry</td>
+			<td>jerry@sohu.com</td>
+			<td>8000</td>
+			<td><a href="deleteEmp?id=002">Delete</a></td>
+		</tr>
+		<tr>
+			<td>Bob</td>
+			<td>bob@tom.com</td>
+			<td>10000</td>
+			<td><a href="deleteEmp?id=003">Delete</a></td>
+		</tr>
+	</table>
+
+	<div id="formDiv">
+	
+		<h4>添加新员工</h4>
+
+		<table>
+			<tr>
+				<td class="word">name: </td>
+				<td class="inp">
+					<input type="text" name="empName" id="empName" placeholder="请输入以大写英文字母开头的姓名"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="word">email: </td>
+				<td class="inp">
+					<input type="text" name="email" id="email" />
+				</td>
+			</tr>
+			<tr>
+				<td class="word">salary: </td>
+				<td class="inp">
+					<input type="text" name="salary" id="salary" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<button id="addEmpButton" value="abc">
+						Submit
+					</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+</body>
+</html>

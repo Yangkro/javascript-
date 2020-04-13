@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			.areaDiv {
+				height: 200px;
+				width: 300px;
+				margin: 20px auto;
+				border: 1px solid black;
+			}
+			.showMessage {
+				height: 100px;
+				width: 300px;
+				border: 1px solid black;
+				margin: 0 auto;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var div = document.getElementsByTagName("div");
+				div[0].onmousemove = function(event) {
+				//使用相同的方法来解决兼容性问题
+					if(!event){
+						event = window.event;
+					}
+				//或者之间简写为
+				// event = event ||window.event
+				//此方法只兼容IE9及其以上版本浏览器，不支持IE8,因为IE8中响应函数触发时，浏览器不会传递对象，而是事件对象作为window对象的属性保存
+				var x = event.clientX;
+				var y = event.clientY;
+				div[1].innerHTML = "X = "+x+"Y = "+y;
+			}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="areaDiv"></div>
+		<div class="showMessage"></div>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				height: 1000px;
+			}
+			.box1{
+				position: absolute;
+				height: 100px;
+				width: 100px;
+				background-color: pink;
+			}
+			.showMessage {
+				position: fixed;
+				right: 0;
+				top: 0;
+				height: 80px;
+				width: 300px;
+				border: 1px solid black;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				var showMessage = document.getElementById("showMessage");
+				var body = document.body;
+				//为文档绑定一个鼠标移动事件
+				document.onmousemove = function(event){
+					event = event||window.event;
+					// if(!event) {
+					// 	event = window.event;
+					// }
+					// var X = event.clientX;
+					// var Y = event.clientY;
+					//当滚动条滚动时，鼠标和box1之间会出现距离，所以采用pageX和pageY，但是不兼容IE8及其以下版本的浏览器
+					// var X = event.pageX;
+					// var Y = event.pageY;
+					//解决兼容性，采用event.clientX+scrollLeft(视口坐标加滚地条移动坐标)，
+					//但是Chrome认为滚动条是body的，而火狐等浏览器认为滚动条是HTML的
+					// var X = event.clientX + (body.scrollLeft || document.documentElement.scrollLeft);
+					// var Y = event.clientY + (body.scrollTop || document.documentElement.scrollTop);
+					//综上兼容性写法
+					var X = event.pageX ||(body.scrollLeft || document.documentElement.scrollLeft);
+					var Y = event.pageY||(body.scrollTop || document.documentElement.scrollTop);
+					showMessage.innerHTML = "X = "+X+" Y = "+Y;
+					box1.style.left = X+"px";
+					box1.style.top = Y+"px";
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div class="box1" id="box1"></div>
+		<div class="showMessage" id="showMessage"></div>
+	</body>
+</html>

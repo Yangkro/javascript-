@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script type="text/javascript">
+		window.onload = function(){
+			var ul = document.getElementsByClassName("ul")[0];
+			//用以前的方法为a添加一个点击事件,会造成新添加的元素没有点击响应函数
+			// var allA = document.getElementsByTagName("a");
+			// for(var i = 0; i < allA.length; i++){
+			// 	allA[i].onclick = function(){
+			// 		var text = this.innerText;
+			// 		// var text = allA[i].innerText; 点击函数代码点击的时候触发，此时i=长度
+			// 		alert(text);
+			// 	}
+			// }
+			
+			//采用事件委派的方式，向其父元素添加点击响应函数，再过滤
+			ul.onclick = function(event) {
+				if(event.target.className == "link"){
+					alert(event.target.innerHTML);
+				}
+			}
+			//添加li和a
+			btn.onclick = function(){
+			var btn = document.getElementById("btn");
+			var newLi = document.createElement("li");
+			newLi.innerHTML = "<a href='javascript:;' class='link'>我是新添加的li</a>";
+			ul.appendChild(newLi);
+			};
+		};
+	</script>
+</head>
+<body>
+	<button type="button" id="btn">点击我增加列表</button>
+	<ul class="ul">
+		<li><a href="#" class="link">我是li1</a></li>
+		<li><a href="#" class="link">我是li2</a></li>
+		<li><a href="#" class="link">我是li3</a></li>
+		<li><a href="#" class="link">我是li4</a></li>
+	</ul>
+</body>
+</html>

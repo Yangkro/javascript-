@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box1 {
+				height: 300px;
+				width: 300px;
+				background-color: pink;
+				padding: 10px;
+				overflow: auto;
+				border: 10px solid #ADFF2F;
+			}
+			.box1 p {
+				width: 350px;
+				height: 350px;
+				overflow: auto;
+			}
+			.box2 {
+				position: relative;
+				left: 20px;
+				top: 20px;
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			.box3 {
+				position: absolute;
+				left: 30px;
+				top: 30px;
+				height: 100px;
+				width: 100px;
+				background-color: #ADFF2F;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="btn1">点我换颜色</button>
+		<button id="btn2">点击我获取滚动条滚动距离</button>
+		<div class="box1" id="box1">
+			<p id="info">
+				豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。
+				时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。
+				披绣闼，俯雕甍，山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。
+				遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人？萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？
+				嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！
+				勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？
+				呜乎！胜地不常，盛筵难再；兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙怀，恭疏短引；一言均赋，四韵俱成。请洒潘江，各倾陆海云尔：
+			</p>
+		</div>
+		<input type="checkbox" name="" id="checkbox" value="" disabled="disabled" />
+		<label for="checkbox">我已认真阅读注册条款</label>
+		<input type="submit" name="" id="submit" value="注册"  disabled="disabled"/>
+		<div class="box2" id="box2">
+			<div class="box3" id="box3"></div>
+		</div>
+		<script type="text/javascript">
+			var info = document.getElementById("info")
+			var box1 = document.getElementById("box1");
+			var btn1 = document.getElementById("btn1");
+			//console.log(box1.style.backgroundColor);//只支持IE浏览器
+			//alert(box1.currentStyle.width);
+			console.log(getComputedStyle(box1, null).width)
+			btn1.onclick = function(){
+				box1.style.backgroundColor = "red";
+				console.log(box1.style.backgroundColor);
+			};
+			console.log(getStyle(box1, "width"));
+			console.log(getStyle(box1, "backgroundColor"))
+			function getStyle(obj, name) {
+				if(window.getComputedStyle){
+					return getComputedStyle(obj, null)[name];
+				}else {
+					return obj.currentStyle[name];
+				}
+			}
+			//获取可见的高度和宽度，包含内边距，不包含边框
+			console.log(box1.clientHeight, box1.clientWidth);//503,303 因为有滚动条会占据一定的宽度和高度，overflow:hidden时会显示520,320
+			//获取可见的高度和宽度，包含内边距和边框
+			console.log(box1.offsetHeight, box1.offsetWidth);//540, 340
+			var box2 = document.getElementById("box2");
+			var box3 = document.getElementById("box3");
+			//获取最近定位父元素
+			console.log(box2.offsetParent);//body 因为他最近的定位元素是body 
+			console.log(box3.offsetParent);//box2 因为他最近的定位元素是其父元素box2
+			//获取当前元素向对于定位父元素的水平偏移量
+			console.log(box2.offsetLeft);//50
+			console.log(box3.offsetLeft);//30
+			//获取当前元素相对于定位父元素的垂直偏移量
+			console.log(box2.offsetTop);//583 标准流，前面还有其他元素
+			console.log(box3.offsetTop);//30 
+			//获取垂直关东条滚动的高度
+			console.log(box1.scrollHeight);
+			//获取水平滚动条的宽度
+			console.log(box1.scrollWidth);
+			var btn2 = document.getElementById("btn2");
+			btn2.onclick = function(){
+			//获取垂直滚动条的滚动距离
+			console.log("滚动条的垂直滚动距离为："+box1.scrollTop);
+			//获取水平滚动条的水平滚动距离
+			console.log("滚动条的水平滚动距离为："+box1.scrollLeft);
+			}
+			//假定文章为注册条款，阅读完毕后才可以注册
+			//为文章info绑定一个滚动的事件
+			info.onscroll = function(){
+				if(info.scrollHeight - info.scrollTop == info.clientHeight){
+					var checkbox = document.getElementById("checkbox");
+					var submit = document.getElementById("submit");
+					checkbox.disabled = false;
+					submit.disabled = false;
+				};
+			}
+		</script>
+	</body>
+</html>
