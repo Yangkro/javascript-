@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		.box1{
+			display: block;
+			position: relative;
+			height: 160px;
+			width: 160px;
+			background-color: pink;
+			margin: 20px auto;
+		}
+		.close-btn {
+			display: block;
+			position: absolute;
+			top: -7px;
+			left: -18px;
+			color: orange;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box1 = document.getElementsByName("div")[0];
+			var btn = document.getElementsByClassName("close-btn");
+			btn.onclick = function(){
+				box1.style.display = "none";
+			};
+		};
+	</script>
+</head>
+<body>
+	<div class="box1">
+		<img src="images/tao.png" alt="">
+		<i class="close-btn">×</i>
+	</div>
+</body>
+</html>

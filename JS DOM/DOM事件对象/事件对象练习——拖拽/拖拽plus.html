@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style>
+	.box1 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: pink;
+		}
+		.box2 {
+			position: relative;
+			top: 300px;
+			left: 200px;
+			height: 100px;
+			width: 100px;
+			background-color: yellow;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var div = document.querySelector(".box1") || document.getElementsByTagName("div")[0];//解决IE8兼容性，此处只做练习复习
+			div.onmousedown = function(event){
+				//使鼠标定位到点击的位置，鼠标点下位置就已经确定相对距离不变，所以写在点击发生后
+				var ol = event.clientX - div.offsetLeft;
+				var ot = event.clientY - div.offsetTop;
+				document.onmousemove = function(event){
+					event = event || window.event;
+					var X = event.pageX || (event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft));
+					var Y = event.pageY || (event.clientY + (document.body.scrollTop || document.documentElement.scrollTop));
+					div.style.left = X-ol + "px";
+					div.style.top = Y-ot + "px";
+				}
+				//鼠标松开时使div停在鼠标处
+				document.onmouseup = function(){
+					//让跟随鼠标移动停止
+					document.onmousemove = null;
+					//让鼠标弹起失效
+					document.onmouseup = null;
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+		<div class="box1"></div>
+		<div class="box2"></div>
+</body>
+</html>

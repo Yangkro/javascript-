@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		.box1 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: pink;
+		}
+		.box2 {
+			position: relative;
+			top: 300px;
+			left: 200px;
+			height: 100px;
+			width: 100px;
+			background-color: yellow;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var div = document.getElementsByTagName("div");
+			//实现拖拽效果的步骤：1.鼠标按下2.鼠标拖拽，box1跟着移动3.鼠标松开，box1停在鼠标停的位置
+			div[0].onmousedown = function(){
+				//鼠标在document中移动，为document绑定一个鼠标移动事件
+				document.onmousemove = function(event){
+					//获取鼠标移动的坐标
+					event = event || window.event;//解决IE8的兼容性问题，IE8不会传递事件对象，而是用window的属性保存
+					var X = event.pageX ||(event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft));
+					var Y = event.pageY ||(event.clientY + (document.body.scrollTop || document.documentElement.scrollTop));
+					div[0].style.top = Y + "px";
+					div[0].style.left = X + "px";
+				};
+				//鼠标松开，放在onmousedown的函数里面，不然只能执行一次
+				document.onmouseup = function(){
+				//让鼠标停留在这里
+				document.onmousemove = null;
+				//因为onmouseup是定义在document中，所以防止在文档中其他地方鼠标松开会触发事件，故让他消失
+				document.onmouseup = null;
+			};
+			};
+			
+		};
+	</script>
+</head>
+<body>
+	<div class="box1"></div>
+	<div class="box2"></div>
+</body>
+</html>

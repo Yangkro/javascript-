@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style>
+		.box1{
+			height: 200px;
+			width: 200px;
+			border: 1px solid black;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box1 = document.getElementById("box1");
+			var btn = document.getElementById("btn");
+			//使用传递方法为btn绑定两个单击响应函数
+			/*btn.onclick = function(){
+				alert("1");
+			}
+			//当再次绑定一个单击响应函数时，会发现后面的会替换掉前面刚定义的
+			btn.onclick = function(){
+				alert("2");
+			}
+			*/
+		   //假定有为一个元素绑定两个相同事件的需求
+		   //1.使用addEventListener()为事件添加监听 不兼容IE8-
+		   //首先定义一个回调函数
+		   
+		   var callback = function(){
+			   alert(1);
+		   };
+		   /*
+		   btn.addEventListener("click", callback, false);
+		   btn.addEventListener("click", function(){
+			   //使用匿名函数
+			   alert("2");
+		   }, false);
+		   */
+		   //2.使用attachEvent()来绑定事件，不兼容火狐和Chrome
+		   /*
+		   btn.attachEvent("onclick", callback);
+		   btn.attachEvent("onclick", function(){
+			   alert(2);
+		   });
+		   */
+		  //解决兼容性的综合写法
+		  function bind(obj, eventStr, callBack){
+			  if(obj.addEventListener){
+				  obj.addEventListener(eventStr, callBack, false);
+			  }else {
+				  obj.attachEvent("on"+eventStr, function(){
+					  callBack.call(obj);
+				  });
+			  }
+		  };
+		  bind(btn, "click", callback);
+		  bind(btn, "click", function(){
+			  alert(2);
+		  });
+		};
+	</script>
+</head>
+<body>
+	<div class="box1" id="box1">
+		<button type="button" id="btn">点击我</button>
+	</div>
+</body>
+</html>

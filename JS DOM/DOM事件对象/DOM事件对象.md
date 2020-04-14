@@ -40,8 +40,8 @@ if(!event){
 		// var X = event.clientX + (body.scrollLeft || document.documentElement.scrollLeft);
 		// var Y = event.clientY + (body.scrollTop || document.documentElement.scrollTop);
 		//综上兼容性写法
-		var X = event.pageX ||(body.scrollLeft || document.documentElement.scrollLeft);
-		var Y = event.pageY||(body.scrollTop || document.documentElement.scrollTop);
+		var X = event.pageX ||(event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft));
+		var Y = event.pageY||(event.clientY + ( document.body.scrollTop || document.documentElement.scrollTop));
 		showMessage.innerHTML = "X = "+X+" Y = "+Y;
 		box1.style.left = X+"px";
 		box1.style.top = Y+"px";
@@ -181,5 +181,6 @@ if(!event){
 		- 事件从当前目标元素向他的祖先元素传递，依次触发祖先元素上的事件
 * 如果希望在捕获阶段就触发事件，可以将addEventListener()的第三个参数设置为true。但是一般用不到
 * <font color="pink">兼容性</font>：只兼容IE9及以上的浏览器，IE8及以下的浏览器中没有捕获阶段。 
+#### 
 	
 

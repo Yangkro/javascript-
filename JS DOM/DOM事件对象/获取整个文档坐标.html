@@ -47,8 +47,8 @@
 					// var X = event.clientX + (body.scrollLeft || document.documentElement.scrollLeft);
 					// var Y = event.clientY + (body.scrollTop || document.documentElement.scrollTop);
 					//综上兼容性写法
-					var X = event.pageX ||(body.scrollLeft || document.documentElement.scrollLeft);
-					var Y = event.pageY||(body.scrollTop || document.documentElement.scrollTop);
+					var X = event.pageX ||(event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft));
+					var Y = event.pageY||(event.clientY + ( document.body.scrollTop || document.documentElement.scrollTop));
 					showMessage.innerHTML = "X = "+X+" Y = "+Y;
 					box1.style.left = X+"px";
 					box1.style.top = Y+"px";
