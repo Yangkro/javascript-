@@ -147,14 +147,14 @@ if(!event){
 		1.事件的字符串，要on
 		2.回调函数
 	- <font color="pink">兼容性</font>：不兼容火狐
-* <font color="orange>兼容性问题解决方案</font>
+* <font color="orange">兼容性问题解决方案</font>
 定义一个函数，用来为指定元素绑定响应函数。addEventListener()中的this是绑定事件的对象；attachEvent()中的this，是window，可以采用让浏览器调用匿名函数，在匿名函数里调用回调函数，再使用call(obj)，可以转换成obj调用，此时this指向obj。
 	* 参数：
 	1.obj 要绑定事件的对象
 	2.eventStr 要绑定事件的字符串名称（不要on，需要的话后期再加）
 	3.callback 回调函数，即事件的响应函数
 	```
-	function bind(obj, evenStr, callback){
+	function bind(obj, eventStr, callback){
 		if(obj.addEventListener) {
 			obj.addEvenListener(eventStr, callback, false);
 		} 
@@ -163,15 +163,15 @@ if(!event){
 		}*/
 		else{
 			//使用这种方法，可以使this指向事件绑定者obj
-			obj.attachEvent("on"+eventStr, function()){
+			obj.attachEvent("on"+eventStr, function(){
 				//在匿名函数中调用回调函数
 				callback.call(obj);
-			};
+			});
 		}
 	}
 	```
 #### 事件的传播
-微软公司认为事件室友内向外传播的，即当事件触发时，应该先触发当前元素上的操作，然后再向当前元素的祖先元素上传播，也就是说事件在冒泡的时候执行。网景公司认为事件应该是由内向外传播的，也就是说当前事件触发时，应该先触发当前元素的最外层的祖先元素事件，然后再向内传播给后代元素。 最后由W3C制定标准 
+微软公司认为事件是由内向外传播的，即当事件触发时，应该先触发当前元素上的操作，然后再向当前元素的祖先元素上传播，也就是说事件在冒泡的时候执行。网景公司认为事件应该是由内向外传播的，也就是说当前事件触发时，应该先触发当前元素的最外层的祖先元素事件，然后再向内传播给后代元素。 最后由W3C制定标准 
 * W3C将事件分为三个阶段
 	1. 捕获阶段
 		- 在捕获阶段时从最外层的祖先元素开始，向里层的目标元素事件进行捕获，但是此时默认不会触发事件
@@ -181,6 +181,35 @@ if(!event){
 		- 事件从当前目标元素向他的祖先元素传递，依次触发祖先元素上的事件
 * 如果希望在捕获阶段就触发事件，可以将addEventListener()的第三个参数设置为true。但是一般用不到
 * <font color="pink">兼容性</font>：只兼容IE9及以上的浏览器，IE8及以下的浏览器中没有捕获阶段。 
-#### 
-	
+#### 鼠标事件
+* 鼠标按下onmousedown
+可以定义当鼠标按下时发生的事件
+* 鼠标移动事件 onmousemove
+可以定义当鼠标移动时发生的事件
+* 鼠标弹起 onmouseup
+定义当鼠标按下弹起时触发的事件
+**注：具体事例练习请参考 事件对象练习——拖拽**
+* 鼠标滚轮事件	onmousewheel
+会在滚轮滚动时触发事件，<font color="pink">不兼容火狐浏览器</font>。在火狐中需要使用DOMMouseScroll来绑定滚动事件，<font color="red">注意该事件需要通过addEventListener()或者attachEvent()函数来绑定事件</font>
+	* event.wheelDelta 获取滚轮滚动的方向
+	向上滚动为正值，向下滚动为负值（不同的浏览器的数值不一样，但是值得大小不重要，只看正负），<font color="pink">火狐不支持，undefined。在火狐中使用event.detail 来获取滚动的方向，**向上滚动为-3，向下滚动为3**</font>
+	* 取消页面滚动条随之滚动 
+	当页面有滚动条时，如果滚动滚动轮，滚动条会随之滚动。这是浏览器的默认行为，如果不希望发生，则可以取消该默认行为。
+		* return false 取消默认行为。**由于火狐是采用bind函数绑定，所以此方法无效**
+		* event.preventDefault() 取消事件的默认行为<font color="pink">不支持IE8</font> 
+		```
+		event.preventDefault && event.preventDefault();
+		//表示有就直接使用，没有就不使用
+		```
+**示例：滚轮改变方块大小.html**
+#### 键盘事件
+键盘事件一般会绑定给一些可以获取到焦点的对象（表单）或者是document
+* onkeydown 按键被按下
+当按键被按着不松开的时候，事件会连续触发，但是第一次和第二次之间的间隔会长一点，其他的都很快。
+	* 在文本框中输入内容，输入onkeydown的默认行为，如果取消后默认行为，则输入的内容不会出现在文本框中。
+* onkeyup 按键松开
+不会连续触发，只会触发一次
+* keyCode和特殊按键属性 
+可以通过keyCode来获取被按下按键的编码。altKey、ctrlKey、shiftKey可以用来判断这些按键是否被按下（返回Boolean值），配合keycode来实现判断快捷键的使用。
+
 

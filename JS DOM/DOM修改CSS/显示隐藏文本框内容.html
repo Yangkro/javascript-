@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		.box1{
+			position: relative;
+			height: 300px;
+			width: 500px;
+			margin: 20px auto;
+		}
+		.box1 input{
+			height: 27px;
+			width: 250px;
+			outline: none;
+			margin: 0;
+			padding: 0 2px;
+			font-size: 14px;
+			color: #999;
+			border: 1px solid #87CEEB;
+		}
+		.box1 button{
+			position: absolute;
+			height: 29px;
+			width: 55px;
+			background-color: skyblue;
+			border: none;
+			outline: none;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+		var text = document.getElementById("input1");
+		text.onfocus = function(){
+			//判断是否有文字，有文字就清空
+			if(this.value == "手机/电脑/数码"){
+				this.value = "";
+			}
+			//获取焦点，输入的文字颜色变深
+			this.style.color = "#333";
+		};
+		//失去焦点
+		text.onblur = function(){
+			//失去焦点没有文字，自动填充默认内容
+			if(this.value == ""){
+				this.value = "手机/电脑/数码";
+				this.style.color = "#999";
+			}
+		};	
+		};
+	</script>
+</head>
+<body>
+	<div class="box1">
+		<input type="text" name="" id="input1" value="手机/电脑/数码" />
+		<button>搜索</button>
+	</div>
+</body>
+</html>

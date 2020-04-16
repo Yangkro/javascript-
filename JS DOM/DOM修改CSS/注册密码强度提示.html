@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		input {
+			outline: none;
+			height: 18px;
+		}
+		#text {
+			color: #666;
+			font-size: 12px;
+
+		}
+		#text img {
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var text = document.getElementById("text");
+			var psd = document.getElementById("psd");
+			psd.onblur = function(){
+				if(psd.value.length < 6 || this.value.length > 16){
+					text.innerHTML = "<img src='images/wrong.png' alt=''>您输入的密码小于6位或者大于16位";
+					text.style.color = "red";
+				}else {
+					text.innerHTML = "<img src='images/right.png' alt=''>密码格式正确";
+					text.style.color = "green";
+				}
+			};
+			
+		};
+	</script>
+</head>
+<body>
+	<table border="0" cellspacing="10px" cellpadding="">
+		<tr><td>用户名：</td><td><input type="text"></td></tr>
+		<tr><td>密  码：</td><td><input type="password" id="psd"></td><td><p id="text"><img src="images/mess.png" alt="">请输入6-16位的密码</p></td></tr>
+	</table>
+</body>
+</html>

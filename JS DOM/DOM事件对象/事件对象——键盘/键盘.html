@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script type="text/javascript">
+		window.onload = function(){
+			document.onkeydown = function(event){
+				if(event.keyCode == 65 && event.ctrlKey )
+				console.log("A+ctrl");
+			};
+			var text = document.getElementById("text");
+			text.onkeydown = function(event){
+				if(event.keyCode > 105 || event.keyCode < 95){
+					//只能在表单中输入数字，其他数字输入不显示
+					return false;
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<input type="text" name="" id="text" value="" />
+</body>
+</html>

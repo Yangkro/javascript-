@@ -17,15 +17,22 @@
 		.close-btn {
 			display: block;
 			position: absolute;
-			top: -7px;
+			top: 0;
 			left: -18px;
+			height: 16px;
+			width: 16px;
+			font-size: 16px;
+			line-height: 16px;
 			color: orange;
+			border: 1px solid whitesmoke;
+			padding: 0;
+			cursor: pointer;
 		}
 	</style>
 	<script type="text/javascript">
 		window.onload = function(){
-			var box1 = document.getElementsByName("div")[0];
-			var btn = document.getElementsByClassName("close-btn");
+			var box1 = document.getElementsByTagName("div")[0];
+			var btn = document.getElementsByClassName("close-btn")[0];
 			btn.onclick = function(){
 				box1.style.display = "none";
 			};

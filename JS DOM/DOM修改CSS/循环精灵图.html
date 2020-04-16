@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		ul {
+			padding: 0;
+			margin: 20px auto;
+			width: 250px;
+		}
+		ul li{
+			list-style: none;
+			float: left;
+			width: 24px;
+			height: 24px;
+			margin: 15px;
+			background: url(images/sprite.png) no-repeat;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var li = document.getElementsByTagName("li");
+			for(var i = 0; i < li.length; i++){
+				var index = i * 44;
+				//属性值其实就是一个字符串，通过字符串来传值
+				li[i].style.backgroundPosition = "0 -" + index + "px";
+			}
+		};
+	</script>
+</head>
+<body>
+	<ul>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+	</u>
+</bod>
+</htm>
