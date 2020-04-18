@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.box1{
+			position: absolute;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: #FFC0CB;
+			margin: 5px 0;
+		}
+		.box2{
+			position: absolute;
+			top: 0;
+			left: 800px;
+			height: 1000px;
+			width: 1px;
+			background-color: black;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var btn = document.getElementsByTagName("button");
+			var box = document.getElementsByClassName("box1")[0];
+			var timer;
+			btn[0].onclick = function(){
+				clearInterval(timer);
+				//设置定时器
+				timer = setInterval(function(){
+					var oldLeft = parseInt(getStyle(box, "left"));
+					var newLeft = oldLeft + 10
+					if(800 - newLeft < 10){
+						newLeft = 800;
+					}
+					box.style.left = newLeft + "px";
+					if(newLeft === 800){
+						clearInterval(timer);
+					}
+				}, 30);
+			};
+			btn[1].onclick = function(){
+				clearInterval(timer);
+			};
+			function getStyle(obj, name){
+				if(window.getComputedStyle){
+					return getComputedStyle(obj, null)[name];
+				}else {
+					return obj.currentStyle[name];
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<button type="button">开始右移</button>
+	<button type="button">停止右移</button>
+	<br/>
+	<div class="box1"></div>
+	<div class="box2"></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		.box1 {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background-color: pink;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box1 =document.getElementsByTagName("div")[0];
+			var speed = 10;
+			var dir = 0;
+			setInterval(function(){
+				switch(dir){
+					case 37:
+					box1.style.left = box1.offsetLeft - speed +"px";
+					break;
+					case 38:
+					box1.style.top = box1.offsetTop - speed + "px";
+					break;
+					case 39:
+					box1.style.left = box1.offsetLeft + speed +"px";
+					break;
+					case 40:
+					box1.style.top = box1.offsetTop + speed + "px";
+					break;
+				}
+			}, 30);
+			document.onkeydown = function(event){
+				event = event || window.event;
+				dir = event.keyCode;
+				//设置当Ctrl键按下时加速
+				if(event.ctrlKey){
+					speed = 50;
+				}else{
+					speed = 10;
+				}
+			};
+			document.onkeyup = function(event){
+				//松开按键后不移动
+				dir = 0;
+			}
+		};
+	</script>
+</head>
+<body>
+	<div class="box1"></div>
+</body>
+</html>

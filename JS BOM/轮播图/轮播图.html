@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.box1 {
+			position: relative;
+			height: 500px;
+			width: 890px;
+			margin: 100px auto;
+			overflow: hidden;
+		}
+		#ul1 {
+			position: absolute;
+			left: 0;
+			padding: 0;
+			/* width: 10000px; */
+		}
+		#ul1 li {
+			list-style: none;
+			float: left;
+			height: 500px;
+			width: 890px;
+			margin: 0 10px;
+		}
+		#ul1 li img {
+			width: 100%;
+			height: 100%;
+		}
+		#box2 {
+			position: absolute;
+			bottom: 20px;
+			/* left: 50%; */
+		}
+		#box2 a {
+			float: left;
+			height: 15px;
+			width: 15px;
+			border-radius: 50%;
+			background-color: #FFFFFF;
+			margin: 0 5px;
+			/* 设置透明 */
+			opacity: 0.8;
+			/* 兼容IE8的透明 */
+			filter: alpha(opacity = 50);
+		}
+		#box2 a:hover {
+			background-color: orange;
+		}
+	</style>
+	<script src="../定时器练习/js/tool.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box1 = document.getElementById("box1");
+			var ul1 = document.getElementById("ul1");
+			var imgArray = document.getElementsByTagName("img");
+			//设置ul1的宽度，使其子元素能够在一行显示，因为直接写死会导致后期向轮播图中添加图片超出父元素的宽度
+			ul1.style.width = 910*imgArray.length + "px";
+			//获取导航栏
+			var box2 = document.getElementById("box2");
+			box2.style.left = (box1.offsetWidth - box2.offsetWidth)/2 + "px";
+			//获取所有的超链接
+			var allA = document.getElementsByTagName("a");
+			var index = 0;
+			var timer;
+			//设置默认显示第一张图片的超链接的背景颜色为深色、
+			allA[index].style.backgroundColor = "orange";
+			//为每一个超链接绑定单级响应函数
+			for(var i = 0; i < allA.length; i++){
+				allA[i].num = i;
+				allA[i].onclick = function(){
+					index = this.num;
+					//设置背景移动
+					// ul1.style.left = -910*index + "px";
+					//发生点击函数时，应该清楚之前的定时器动画
+					clearInterval(timer);
+					move(ul1, -910*index, 20, "left", function(){
+						//点击跳转后，再次调用自动播放函数
+						autoChange();
+					});
+					setA(index);
+				}
+			}
+			autoChange();
+			function autoChange(){
+				
+				//开启一个定时器，使轮播图自动播放
+				timer = setInterval(function(){
+					//让索引值自增
+					index ++;
+					index = index % imgArray.length;
+					move(ul1, -910*index, 20, "left", function(){
+						setA(index);
+					});
+				}, 3000);
+			};
+			function setA(index){
+				if(index >= imgArray.length - 1){
+					// 设置最后一张图片与第一张图片相同
+					index = 0;
+					//在为最后一张的图片时，直接将其改为第一张图片，由于两张图片一样，所有看不出来
+					ul1.style.left = 0;
+				}
+				for(var i = 0; i < allA.length; i++){
+					// 由于内联样式的优先级高，所以不要从新设置背景图片，否则会覆盖掉hover效果
+					allA[i].style.backgroundColor = "";
+					// allA[i].style.backgroundColor = "rgba(255,255,255,0.5)";
+				}
+				allA[index].style.backgroundColor = "orange";
+			}
+		};
+	</script>
+</head>
+<body>
+	<div class="box1" id="box1">
+		<ul id="ul1">
+			<li><img src="1.jpg" /></li>
+			<li><img src="2.jpg" /></li>
+			<li><img src="3.jpg" /></li>
+			<li><img src="4.jpg" /></li>
+			<li><img src="5.jpg" /></li>
+			<li><img src="1.jpg" /></li>
+		</ul>
+		<div id="box2">
+		<a href="javascript:;"></a>
+		<a href="javascript:;"></a>
+		<a href="javascript:;"></a>
+		<a href="javascript:;"></a>
+		<a href="javascript:;"></a>
+	</div>
+	</div>
+	
+</body>
+</html>

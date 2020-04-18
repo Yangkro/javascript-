@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.box1{
+			position: absolute;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: pink;
+			color: white;
+			font-size: 20px;
+			line-height: 100px;
+			text-align: center;
+		}
+		.box3 {
+			position: absolute;
+			top: 200px;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: yellowgreen;
+			color: white;
+			font-size: 20px;
+			line-height: 100px;
+			text-align: center;
+		}
+		.box4 {
+			position: absolute;
+			top: 400px;
+			left: 0;
+			height: 100px;
+			width: 100px;
+			background-color: darkred;
+			color: white;
+			font-size: 20px;
+			line-height: 100px;
+			text-align: center;
+		}
+		#box2 {
+			position: absolute;
+			top: 0;
+			left: 800px;
+			height: 1000px;
+			width: 1px;
+			background-color: black;
+		}
+	</style>
+	<script type="text/javascript" src="js/tool.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box1 = document.getElementById("box1");
+			var box3 = document.getElementById("box3");
+			var box4 = document.getElementById("box4");
+			
+			//为box1绑定move函数
+			box1.onclick =function(){
+				move(this, 800, 10, "left");
+			};
+			//box3绑定移动函数
+			box3.onclick =function(){
+				move(this, 800, 20, "left");
+			};
+			box4.onclick = function(){
+				move(this, 800, 20, "width", function(){
+					move(box4, 400, 20, "height", function(){
+						move(box4, 100, 20, "height", function(){
+							move(box4, 100, 20, "width");
+						})
+					});
+				});
+			};
+		};
+	</script>
+</head>
+<body>
+	<div class="box1" id="box1">盒子1</div>
+	<div class="box3" id="box3">盒子2</div>
+	<div class="box4" id="box4">测试</div>
+	<div id="box2"></div>
+</body>
+</html>
