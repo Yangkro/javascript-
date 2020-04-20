@@ -13,7 +13,7 @@ function move(obj, target, speed, dir, callback) {
 	if (target < current) {
 		speed = -speed;
 	}
-	
+
 	//添加定时器
 	obj.timer = setInterval(function() {
 		var oldValue = parseInt(getStyle(obj, dir));
@@ -36,5 +36,38 @@ function getStyle(obj, name) {
 		return getComputedStyle(obj, null)[name];
 	} else {
 		return obj.currentStyle[name];
+	}
+};
+
+
+//定义一下函数为元素的样式类进行操作
+//定义一些函数，用来添加、删除、判断是否引用，切换元素样式
+function hasClass(obj, cn) {
+	//判断目标元素中是否含有cn这种样式
+	var reg = new RegExp("\\b" + cn + "\\b");
+	return reg.test(obj.className);
+};
+
+function addClass(obj, cn) {
+	//为一个元素添加新的样式类
+	if (!hasClass(obj, cn)) {
+		//如果没有则添加
+		obj.className += " " + cn;
+	}
+};
+
+function removeClass(obj, cn) {
+	//为一个元素删除目标样式类
+	var reg = new RegExp("\\b" + cn + "\\b");
+	obj.className = obj.className.replace(reg, "");
+};
+
+function toggleClass(obj, cn) {
+	//判断元素obj是否有cn样式类
+	if (hasClass(obj, cn)) {
+		//如果有则删除
+		removeClass(obj, cn);
+	} else {
+		addClass(obj, cn);
 	}
 };
