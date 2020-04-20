@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>二级菜单</title>
+	<link rel="stylesheet" href="index.css">
+	<script type="text/javascript" src="../定时器练习/js/tool.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			//定义一些函数，用来添加、删除、判断是否引用，切换元素样式
+			function hasClass(obj, cn){
+				//判断目标元素中是否含有cn这种样式
+				var reg = new RegExp("\\b"+cn+"\\b");
+				return reg.test(obj.className);
+			};
+			function addClass(obj, cn){
+				//为一个元素添加新的样式类
+				if(!hasClass(obj, cn)){
+					//如果没有则添加
+					obj.className += " "+cn;
+				}
+			};
+			function removeClass(obj, cn){
+				//为一个元素删除目标样式类
+				var reg = new RegExp("\\b" + cn + "\\b");
+				obj.className = obj.className.replace(reg, "");
+			};
+			function toggleClass(obj, cn){
+				//判断元素obj是否有cn样式类
+				if(hasClass(obj, cn)){
+					//如果有则删除
+					removeClass(obj, cn);
+				}else {
+					addClass(obj, cn);
+				}
+			};
+			//获取span
+			var span = document.getElementsByTagName("span");
+			//为每一个span元素添加一个单击响应函数
+			//记录打开的div
+			var openDiv = span[0].parentElement;
+			for(var i = 0; i < span.length; i++){
+				span[i].onclick = function(){
+					var parentDiv = this.parentNode;
+					//切换菜单状态
+					toggleMenu(parentDiv);
+					if(parentDiv != openDiv && !hasClass(openDiv, "collapsed")){
+						//判断点击的盒子是不是打开的盒子，如果不是则关闭，如果已经有collasped类就不加入
+						// addClass(openDiv, "collapsed");
+						// toggleClass(openDiv, "collapsed");
+						toggleMenu(openDiv);
+					}
+					openDiv = parentDiv;
+				};
+			}
+			function toggleMenu(obj){
+				//在切换类之前，获取元素的高度
+				var begin = obj.offsetHeight;
+				toggleClass(obj, "collapsed");
+				//在切换后获取元素的高度
+				var end = obj.offsetHeight;
+				//让begin让end过度，为了有动画效果，将高度再重置为begin
+				obj.style.height = begin + "px";//优先级高，后面要清除
+				move(obj, end, 10, "height", function(){
+					//清除之前设置的内联样式
+					obj.style.height = "";
+				});
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="my_menu" class="sdmenu">
+		<div>
+			<span class="menuSpan">编程语言</span>
+			<a href="#">Java</a>
+			<a href="#">C++</a>
+			<a href="#">C</a>
+			<a href="#">Javasript</a>
+			<a href="#">Python</a>
+		</div>
+		<div class="collapsed">
+			<span class="menuSpan">前端必看书籍</span>
+			<a href="#">JavaScript高级程序设计</a>
+			<a href="#">JavaScript权威指南</a>
+			<a href="#">CSS权威指南</a>
+			<a href="">图解HTTP</a>
+		</div>
+		<div class="collapsed">
+			<span class="menuSpan">IT基础课程</span>
+			<a href="#">高等数学</a>
+			<a href="#">线性代数</a>
+			<a href="#">离散数学</a>
+			<a href="#">数字电路</a>
+		</div>
+		<div class="collapsed">
+			<span class="menuSpan">科班必修基础课程</span>
+			<a href="#">数据结构</a>
+			<a href="#">操作系统</a>
+			<a href="#">计算机网络</a>
+		</div>
+	</div>
+</body>

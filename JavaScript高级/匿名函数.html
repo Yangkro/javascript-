@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script type="text/javascript">
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		(function(){
+		    var a = 3;
+		    console.log(++a);
+		});
+		var a = 10; 
+		console.log(a);//10
+		(function(){
+		    var a = 1;
+		    function test(){
+		        console.log(a++);
+		    };
+		    window.fun = function(){
+		        return {
+		            method: test
+		        };
+		    }
+		})();
+		console.log(fun());
+		fun().method();
+	</script>
+</body>
+</html>
