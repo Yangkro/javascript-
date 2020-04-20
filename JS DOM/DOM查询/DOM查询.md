@@ -201,6 +201,36 @@
 <font color="orange" size=4>注：所有的`xxxNode`在IE8以下版本中不会将空白当成子节点，高于IE8的会将空白当成子节点，返回类型是Node。所有`xxxElementxxx`都不会将空格读为子节点，但是只兼容IE9+,返回类型是HTMLElement</font>
 ##### 读取元素节点属性
 通过DOM查询获取文档中的元素节点后，可以访问元素节点中的属性节点，如果是双标签可以访问文本节点
+* element.属性名
+这种方法只能获取到元素自身的属性
 语法：<font color="purple">元素.属性</font>  
 例如: `元素.id、元素.value、元素.name……`。但是class属性需要通过className来访问，语法为：<font color="purple">元素.className</font>  
 访问元素中的文本节点，语法为: <font color="rpurple">`元素.innerHTML`</font>
+* getAttribute("属性")
+通过getAttribute()可以获取用户自定义的属性，也可以获取元素自身属性值
+* setAttribute("属性", "值")
+通过setAttribute()可以设置用户自定义的属性值，也可设置元素自身属性值。<font color="red">当设置元素的样式时，参数为class，而不是className</font>
+* removeAttribute()
+删除元素的某种属性
+	```
+	<div id="demo" index = "2"></div>
+	<script type="text/javascript">
+		var div = document.getElementById("demo");
+		console.log(div.id);//demo
+		console.log(div.getAttribute("index"));//2
+		console.log(div.getAttribute("id"));//demo
+		div.setAttribute("index", "3");
+		console.log(div.getAttribute("index"));//3
+		//用setAttribute()为元素设置样式
+		div.setAttribute("class", "color");
+		console.log(div.getAttribute("class"));//color
+		console.log(div.className);//color
+		div.setAttribute("class", "")
+		console.log(div.getAttribute("class"));//用这种方法将将div的样式清空了
+		console.log(div.className);//什么都没有
+		//用removeAttribute()来删除元素的某种属性
+		div.removeAttribute("index);//删除了index属性
+		div.removeAttribute("index");
+		console.log(div.getAttribute("index"));//null
+	</script>
+	```
