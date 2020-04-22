@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var f = function(){
+				console.log(1);
+			}
+			function f() {
+				console.log(2);
+			}
+			f();//1 JS中函数不会被重载，只会被后面的覆盖，只存在变量名的提升，但是同时用var和function声明的以var为准
+			var fun = function fu(){
+				
+			};
+			var test = function(x){
+				console.log(x.name);
+			}
+			test(fun);//fu
+			console.log(test.length);//1
+		</script>
+	</body>
+</html>

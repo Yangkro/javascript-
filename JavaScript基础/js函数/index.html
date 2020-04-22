@@ -6,109 +6,108 @@
 	</head>
 	<body>
 		<script>
-			    var sum = function(a,b) {
-			        console.log(a+b);
-			    }
-			    sum(true,456);
-				sum(123,false,"hello",null,undefined);//123
-				sum(123);//NaN
-				function sumPlus(a, b, c){
-					var result = a + b + c;
-					return result;
+			var sum = function(a, b) {
+				console.log(a + b);
+			}
+			sum(true, 456);
+			sum(123, false, "hello", null, undefined); //123
+			sum(123); //NaN
+			function sumPlus(a, b, c) {
+				var result = a + b + c;
+				return result;
+			}
+			var num = sumPlus(1, 2, 3);
+			console.log(num, typeof num);
+			//判断奇偶函数
+			function isEven(number) {
+				return number % 2 == 0;
+			}
+			console.log(isEven(3))
+			//求圆的面积
+			function circleArea(radius) {
+				return radius * radius * Math.PI;
+			}
+			console.log(circleArea(2));
+			//用对象传递参数
+			function sayHello(o) {
+				//es6的写法
+				console.log(`我是${o.name}，我今年${o.age}了，我来自${o.adress}`);
+			}
+			var obj = {
+				name: "Yangkro",
+				age: 23,
+				adress: "河南信阳"
+			};
+			sayHello(obj);
+			//将一个函数作为宁一个函数的参数
+			function function1(parameter1) {
+				console.log("结果为" + parameter1);
+			}
+			var function2 = function(parameter1, parameter2) {
+				return parameter1 + parameter2;
+			}
+			function1(function2(1, 2));
+
+			function fun1() {
+				function fun2() {
+					alert("我是fun2，我将返回fun2的运算结果");
 				}
-				var num = sumPlus(1, 2, 3);
-				console.log(num, typeof num);
-				//判断奇偶函数
-				function isEven(number) {
-					return number % 2 == 0;
+				//函数中调用函数
+				fun2();
+				//将函数作为返回值，直接给出冰激凌
+				return fun2();
+			}
+			var a = fun1();
+			console.log(a);
+			//将对象作为返回值
+			function fun1() {
+				function fun2() {
+					alert("我是fun2，我将返回fun2对象");
 				}
-				console.log(isEven(3))
-				//求圆的面积
-				function circleArea(radius) {
-					return radius*radius*Math.PI;
-				}
-				console.log(circleArea(2));
-				//用对象传递参数
-				function sayHello(o) {
-					//es6的写法
-					console.log(`我是${o.name}，我今年${o.age}了，我来自${o.adress}`);
-				}
-				var obj = {
-					name: "Yangkro",
-					age: 23,
-					adress: "河南信阳"
-				};
-				sayHello(obj);
-				//将一个函数作为宁一个函数的参数
-				function function1(parameter1) {
-				        console.log("结果为"+parameter1);
-				    }
-				    var function2 = function(parameter1, parameter2){
-				        return parameter1 + parameter2;
-				    }
-					function1(function2(1,2));
-					
-					function fun1(){
-					        function fun2(){
-					            alert("我是fun2，我将返回fun2的运算结果");
-					        }
-					        //函数中调用函数
-					        fun2();
-					        //将函数作为返回值，直接给出冰激凌
-					        return fun2();
-					    }
-					    var a = fun1();
-					    console.log(a);
-						//将对象作为返回值
-						function fun1(){
-						        function fun2(){
-						            alert("我是fun2，我将返回fun2对象");
-						        }
-						        //函数中调用函数
-						        fun2();
-						        //将函数作为返回值，返回制作冰激凌的机器
-						        return fun2;
-						    }
-						 fun1()();
-						 //立即执行函数，调用匿名函数
-						     (function sum(a, b){
-								 var r = a + b;
-						         console.log("a + b ="+r);
-						     })(123,456);
-						//函数作为属性值
-						//使用函数作为对象的属性值
-						    var obj = new Object();
-						    obj.name = "刘德华";
-						    obj.age = 18;
-						    obj.sayName = function(){
-						        console.log("喊出我的名字"+obj.name)
-						    };
-						    obj.sayName();
-							//对象中属性的枚举
-							var obj2 = new Object();
-							obj2.name = "梁朝伟";
-							obj2.age = 20;
-							obj2.adress = "hangkong";
-							for(var n in obj2) {
-								//会将属性名一一赋值给n
-								console.log("属性名:"+n);
-								//会将属性值挨个打印出来
-								console.log(obj2[n]);
-							}
-							var a = "我是全局变量";
-							var b = "我是全局变量b";
-							            function method1() {
-											// console.log(a);//undefined
-											console.log(b);
-							                var a = "我是method1中的局部变量";
-											console.log(a);
-							                console.log(window.a);
-											d = "我是method1中没有用var声明的变量";
-							            }
-							method1();
-							console.log(d);
-							
-							
+				//函数中调用函数
+				fun2();
+				//将函数作为返回值，返回制作冰激凌的机器
+				return fun2;
+			}
+			fun1()();
+			//立即执行函数，调用匿名函数
+			(function sum(a, b) {
+				var r = a + b;
+				console.log("a + b =" + r);
+			})(123, 456);
+			//函数作为属性值
+			//使用函数作为对象的属性值
+			var obj = new Object();
+			obj.name = "刘德华";
+			obj.age = 18;
+			obj.sayName = function() {
+				console.log("喊出我的名字" + obj.name)
+			};
+			obj.sayName();
+			//对象中属性的枚举
+			var obj2 = new Object();
+			obj2.name = "梁朝伟";
+			obj2.age = 20;
+			obj2.adress = "hangkong";
+			for (var n in obj2) {
+				//会将属性名一一赋值给n
+				console.log("属性名:" + n);
+				//会将属性值挨个打印出来
+				console.log(obj2[n]);
+			}
+			var a = "我是全局变量";
+			var b = "我是全局变量b";
+
+			function method1() {
+				// console.log(a);//undefined
+				console.log(b);
+				var a = "我是method1中的局部变量";
+				console.log(a);
+				console.log(window.a);
+				d = "我是method1中没有用var声明的变量";
+			}
+			method1();
+			console.log(d);
 		</script>
 	</body>
 </html>

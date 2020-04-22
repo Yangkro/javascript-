@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			outerloop:
+				for (var i = 0; i < 10; i++)
+				{
+					innerloop:
+					for (var j = 0; j < 10; j++)
+					{
+						if (j > 3)
+						{
+							break;
+						}
+						if (i == 2)
+						{
+							break innerloop;
+						}
+						if (i == 4)
+						{
+							break outerloop;
+						}
+						console.log("i=" + i + " j=" + j + " ");
+					}
+				}
+				console.log("=======")
+				top:
+				  for (var i = 0; i < 3; i++){
+				    for (var j = 0; j < 3; j++){
+				      if (i === 1 && j === 1) continue top;
+				      console.log('i=' + i + ', j=' + j);
+				    }
+				  }
+				//到continue后面有标签时满足条件后会跳转过当前循环，直接进入下一层外部循环，当没有标签时只会跳出当前内层循环
+				//跳转到top时		不跳转到top时					
+				// i=0, j=0			i=0, j=0
+				// i=0, j=1			i=0, j=1
+				// i=0, j=2			i=0, j=2
+				// i=1, j=0			i=1, j=0
+				// i=2, j=0			i=1, j=2
+				// i=2, j=1			i=2, j=0
+				// i=2, j=2			i=2, j=1
+				//					i=2, j=2
+				 var myVar;
+				    console.log(
+				        myVar?
+				        "myVar has a value":
+				        "myVar dose not have a value"
+				    )
+		</script>
+	</body>
+</html>
