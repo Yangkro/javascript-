@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		function a() {
+			
+		}
+		var a
+		console.log(a)//function
+		//测试题2
+		if(!(b in window)){
+			var b = 1
+		}
+		console.log(b)//undefined 变量的提升导致b没有被赋值
+		//测试题3 执行上下文对象
+		console.log("========")
+		console.log("gb:" + i)
+		var i = 1
+		foo(1)
+		function foo(i){
+			if(i === 4){
+				return
+			}
+			console.log("foo() begin" + i)
+			foo(i + 1)
+			console.log("foo() end" + i)
+		}
+	</script>
+</body>
+</html>

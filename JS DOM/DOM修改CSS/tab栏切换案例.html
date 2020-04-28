@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			li {
+				list-style: none;
+			}
+			.tab {
+				width: 800px;
+				margin: 100px auto;
+			}
+			.tab .tab_list {
+				height: 39px;
+				border: 1px solid #f1f1f1;
+			}
+			ul {
+				display: flex;
+			}
+			ul li {
+				flex: 1;
+				line-height: 39px;
+				text-align: center;
+				cursor: pointer;
+			}
+			.current {
+				background-color: #c81623;
+			}
+			.item {
+				display: none;
+			}
+			/* 可以再添加两个样式类，分别是没有背景颜色和display：block 这样就可以套用排他函数 */
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var allLi = document.getElementsByTagName("li");
+				var items = document.querySelectorAll(".item");
+				//为li绑定单击响应函数
+				for(var i = 0; i < allLi.length; i++){
+					allLi[i].setAttribute("index", i);
+					allLi[i].onclick = function(){
+						var num = this.getAttribute("index")
+						exclusive(allLi, "current", num);
+						for(var j = 0; j < items.length; j++){
+							items[j].style.display = 'none';
+						}
+						items[num].style.display = "block";
+					}
+				}
+				//定义一个排他函数
+				function exclusive(obj, modality, num) {
+					for(var i = 0; i < obj.length; i++){
+						obj[i].className = "";
+					}
+					obj[num].className = modality;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="tab">
+			<div class="tab_list">
+				<ul>
+					<li class="current">商品介绍</li>
+					<li>规格与包装</li>
+					<li>售后保障</li>
+					<li>商品评价</li>
+					<li>手机社区</li>
+				</ul>
+			</div>
+			<div class="tab_con">
+				<div class="item" style="display: block;">
+					商品介绍模块
+				</div>
+				<div class="item">
+					规格与包装模块
+				</div>
+				<div class="item">
+					售后保障模块内容
+				</div>
+				<div class="item">
+					商品评价模块内容
+				</div>
+				<div class="item">
+					手机社区模块内容
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -206,6 +206,24 @@
 语法：<font color="purple">元素.属性</font>  
 例如: `元素.id、元素.value、元素.name……`。但是class属性需要通过className来访问，语法为：<font color="purple">元素.className</font>  
 访问元素中的文本节点，语法为: <font color="rpurple">`元素.innerHTML`</font>
+###### 自定义用户属性
+* 自定义属性的目的
+是为了保存并使用数据，使得有些数据可以保存在网页中而不用保存到数据库中
+* 设置H5自定义属性
+为了判断是否是用户自定义的属性<font color="red">H5规定自定义属性用data-开头作为属性名并且赋值</font>
+* H5新增获取自定义属性的方法
+dataset获取自定义属性的方法，dataset是一个集合，里面存放了所有以data开头的自定义属性
+	* element.dataset.自定义属性名（不加data前缀）
+	<font color="red">如果自定义属性里面有多个`-`链接的单词，我们获取的时候采取驼峰命名法</font>
+		```
+		<div data-index = "1" data-list-name = "andy">
+		var div = document.querySelector("div");
+		console.log(div.dataset["listName"]);//andy
+		console.log(div.dataset.listName);//andy
+		console.log(div.dataset.index);//1
+		console.log(div.getAttribute("data-list-name));//andy
+		```
+
 * getAttribute("属性")
 通过getAttribute()可以获取用户自定义的属性，也可以获取元素自身属性值
 * setAttribute("属性", "值")

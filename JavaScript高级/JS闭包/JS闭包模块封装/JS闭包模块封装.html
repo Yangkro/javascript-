@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="Module.js" type="text/javascript"></script>
+    <script src="myModule.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var module = Module();
+        module.doSomething();
+        module.doOtherthing();
+        //使用第二种方法定义方法模块myModule.js
+        myModule.printMessage1()
+        myModule.printMessage2()
+    </script>
+</body>
+</html>
