@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短信发送案例</title>
+</head>
+<body>
+    <label for="tel">手机号：<input type="tel" id="tel"></label>
+    <button id="btn">获取手机验证码</button>
+    <script>
+        var btn = document.getElementById("btn");
+        var time = 5;//定义一个计数器，方便计数统计
+        btn.addEventListener("click", function(){
+           this.disabled = true;
+            var timer = setInterval(function(){
+                if(time === 0){
+                    clearInterval(timer);
+                    btn.disabled = false;//此处不能使用this，因为调用者是window
+                    time = 5;//对计数器进行重置
+                    btn.innerHTML = "获取手机验证码";
+                } else{
+                    btn.innerHTML = time + "秒后可从新获取验证码";
+                    time --;
+                }
+            }, 1000);
+        }, false);
+    </script>
+</body>
+</html>

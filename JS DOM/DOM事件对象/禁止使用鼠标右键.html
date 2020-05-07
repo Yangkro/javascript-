@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		h2 {
+			margin: 100px auto;
+			font-size: 25px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h2>一个人的一生应该是这样度过的：当他回首往事的时候，他不会因为虚度年华而悔恨，也不会因为碌碌无为而羞耻</h2>
+	<script type="text/javascript">
+		var text= document.querySelector("h2");
+		text.addEventListener("contextmenu", function(event){
+			event = event ||window.event;
+			event.preventDefault();
+			alert("不可以复制哦")
+		},false);
+		// document.addEventListener("keydown", function(){
+		// 	event = event || window.event;
+		// 	if((event.keyCode === 67) && event.ctrlKey){
+		// 			event.preventDefault();
+		// 			alert("也不可以通过快捷键复制哦")
+		// 		}
+		// });
+		document.onkeydown = function(event) {
+			event = event || window.event;
+			// console.log(event.keyCode)
+			if((event.keyCode === 67) && event.ctrlKey){
+				event.preventDefault();
+				alert("也不可以通过快捷键复制哦")
+			}
+		}
+		//直接不让选中
+		document.addEventListener("selectstart", function(event){
+			event = event || window.event;
+			event.preventDefault();
+		})
+		
+	</script>
+</body>
+</html>

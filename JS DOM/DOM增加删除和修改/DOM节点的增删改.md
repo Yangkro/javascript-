@@ -1,5 +1,4 @@
 #### DOM节点的增删改
-##### DOM节点的增加
 * <font color="#8b7500">document.creatElement("标签名称")</font>
 创建一个元素节点，参数为标签名，返回值为参数标签名的元素节点对象
 * <font color="#8b7500">document.creatTextNode("文本内容")</font>

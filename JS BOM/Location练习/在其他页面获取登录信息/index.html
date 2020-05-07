@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>你好<span></span>!  欢迎登录本网站</h1>
+    <script>
+        var span = document.querySelector("span");
+        var str = location.search;
+        var arr = str.split("=");//根据=分割字符串
+        span.innerHTML = arr[1];
+    </script>
+</body>
+</html>

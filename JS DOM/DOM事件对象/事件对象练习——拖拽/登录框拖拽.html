@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>登录</title>
+		<!-- 由于IE8对CSS的兼容性太差，所有兼容IE8失败，IE9还是很好的，其中JS部分对IE8的兼容性方法可以参考 -->
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			body {
+				position: relative;
+				color: #333333;
+			}
+
+			a {
+				text-decoration: none;
+				color: #333333;
+			}
+
+			a:hover {
+				color: red;
+			}
+
+			.login-head {
+				text-align: center;
+				height: 30px;
+				width: 100%;
+				line-height: 30px;
+				margin: 20px auto;
+				font-size: 24px;
+			}
+
+			/* 设置登录框的样式 */
+			.login {
+				display: none;
+				z-index: 1;
+				position: fixed;
+				height: 300px;
+				width: 500px;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				/* background-color: pink; */
+				background-color: white;
+				border-radius: 10px;
+			}
+
+			.login-title {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 22px;
+			}
+
+			.login-colse {
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				height: 20px;
+				width: 20px;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 20px;
+				background-color: white;
+			}
+
+			.log-content {
+				padding: 20px;
+			}
+
+			.login-input {
+				position: relative;
+				margin-top: 20px;
+			}
+
+			.login-input label {
+				display: inline-block;
+				height: 35px;
+				width: 90px;
+				text-align: right;
+				line-height: 35px;
+				font-size: 18px;
+				padding-right: 10px;
+			}
+
+			.login-input input {
+				outline: none;
+				height: 35px;
+				width: 300px;
+				border: 1px solid gainsboro;
+				padding: 5px 20px;
+				font-size: 18px;
+			}
+
+			.login-input i {
+				display: block;
+				position: absolute;
+				right: 16px;
+				top: 8px;
+				height: 24px;
+				width: 24px;
+				cursor: pointer;
+			}
+
+			.login-input i img {
+				width: 100%;
+				height: 100%;
+				vertical-align: middle;
+			}
+
+			.login-btn {
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
+				width: 250px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 18px;
+				letter-spacing: 18px;
+				background-color: white;
+				border: 1px solid #DCDCDC;
+				transform: translate(-45%, -40%);
+			}
+			.login-btn:hover {
+				cursor: pointer;
+				border: 1px solid skyblue;
+			}
+			/* 设置背景颜色遮罩 */
+			.bg {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="login-head" id="login-head"><a href="javascript:;">点击登录</a></div>
+		<div class="login" id="login">
+			<div class="login-title" id="login-title">登录会员<a href="" class="login-colse" id="login-close">×</a></div>
+			<div class="log-content">
+				<div class="login-input">
+					<label>用户名：</label>
+					<input type="text" name="" id="login-username" value="" placeholder="请输入用户名" />
+				</div>
+				<div class="login-input">
+					<label>登录密码：</label>
+					<input type="password" name="" id="login-password" value="" />
+					<!-- 设置密码查看方式 -->
+					<i><img src="images/close.png" alt="" id="img"></i>
+				</div>
+			</div>
+			<button type="button" id="btn" class="login-btn">登录</button>
+		</div>
+		<div class="bg" id="bg"></div>
+		<script type="text/javascript">
+			var title = document.getElementById("login-title");
+			var login = document.getElementById("login");
+			var loginBtn = document.getElementById("login-head");
+			var bg = document.getElementById("bg");
+			var loginClose = document.getElementById("login-close");
+			var image = document.getElementById("img");
+			var password = document.getElementById("login-password");
+			var flag = 0;
+			// 当鼠标点击title时，鼠标变为move，实现拖动效果
+			bind(title, "mousedown", function(event){
+				event = event || window.event;
+				title.style.cursor = "move";
+				var x = event.clientX - login.offsetLeft;
+				var y = event.clientY - login.offsetTop;
+				bind(document, "mousemove", move);
+				function move(event){
+					event = event || window.event;
+					// 解决获取鼠标坐标兼容性问题
+					var X = event.pageX || (event.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft));
+					var Y = event.pageY || (event.clientY + (document.body.scrollTop || document.documentElement.scrollTop));
+					login.style.left = X - x + "px";
+					login.style.top = Y - y + "px";
+				}
+				bind(document, "mouseup", function(){
+					title.style.cursor = "default";
+					removeBind(document, "mousemove", move);
+				});
+			});
+			//添加打开登录框事件
+			bind(loginBtn, "click", function(){
+				bg.style.display = "block";
+				login.style.display = "block";
+			});
+			//添加关闭绑定事件
+			bind(loginClose, "click", function(){
+				bg.style.display = "none";
+				login.style.display = "none";
+			});
+			//修改密码框密码是否可以查看
+			bind(image, "click", function(){
+				if(flag === 0){
+					password.type = "text";
+					image.src ="images/open.png";
+					flag = 1;
+				}
+				else if (flag === 1){
+					password.type = "password";
+					image.src = "images/close.png";
+					flag = 0;
+				}
+			})
+			// 为了解决浏览器的兼容性，定义部分函数
+			//事件绑定函数
+			function bind(obj, eventStr, callback) {
+				if (obj.addEventListener) {
+					obj.addEventListener(eventStr, callback, false);
+				} else {
+					obj.attachEvent('on' + eventStr, function() {
+						callback.call(obj) //变成obj调用，使this指向obj
+					})
+				}
+			}
+			//解除事件绑定
+			function removeBind(obj, eventStr, callback) {
+				//判断当前浏览器是否支持removeEventListener方法
+				if (obj.removeEventListener) {
+					obj.removeEventListener(eventStr, callback);
+				} else if (obj.detachEvent) {
+					obj.detachEvent("on" + eventStr, callback)
+				} else {
+					obj['on'+eventStr] = null
+				}
+			}
+		</script>
+	</body>
+</html>

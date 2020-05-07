@@ -81,4 +81,3 @@ console.log(getComputedStyle(box1, null).width);//200px
     * <font color="orange">当满足：scrollHeight - scrollTop == clientHeight的时候，说明垂直滚动条滚动到底了</font>
     * <font color="orange">当满足：scrollWidth - scrollLeft == clientWidth的时候，说明水平滚动条滚动到最右边了</font>
 
-

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步执行</title>
+</head>
+<body>
+    <script>
+        console.log(1);
+        setTimeout(function(){
+            console.log("我是定时器");
+        }, 1000);
+        console.log(2);
+    </script>
+    <!-- 
+        输出顺序为：1
+                    2
+                    "我是定时器"
+        不是顺序输出，说明利用了web Worker 标准，创建了多线程
+     -->
+</body>
+</html>

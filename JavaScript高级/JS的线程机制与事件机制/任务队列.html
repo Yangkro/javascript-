@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步执行的执行过程</title>
+</head>
+<body>
+    <script>
+        console.log(1);
+        function fn(){
+            console.log("HELLO");
+        }
+        console.log(2)
+        setTimeout(fn, 3000);
+        document.onclick = fn;
+    </script>
+</body>
+</html>

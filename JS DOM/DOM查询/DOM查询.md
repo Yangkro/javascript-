@@ -199,6 +199,18 @@
 </script>
 ```
 <font color="orange" size=4>注：所有的`xxxNode`在IE8以下版本中不会将空白当成子节点，高于IE8的会将空白当成子节点，返回类型是Node。所有`xxxElementxxx`都不会将空格读为子节点，但是只兼容IE9+,返回类型是HTMLElement</font>
+**兼容性解决**
+```
+function getNextElementSibling(element){
+	var el = element;
+	while(el = el.nextSibling){
+		if(le.nodeType === 1){
+			return el;
+		}
+	}
+	return null;
+}
+```
 ##### 读取元素节点属性
 通过DOM查询获取文档中的元素节点后，可以访问元素节点中的属性节点，如果是双标签可以访问文本节点
 * element.属性名

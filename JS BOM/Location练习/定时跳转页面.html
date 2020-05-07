@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时跳转页面</title>
+    <style>
+        div {
+            height: 100px;
+            width: 300px;
+            margin: 100px auto ;
+            font-size: 20px;
+            line-height: 100px;
+            background-color: palegoldenrod;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        var div = document.getElementsByTagName("div")[0];
+        // var div = document.querySelector("div");
+        var time = 5;
+        fun();
+        var timer = setInterval(fun, 1000);
+        function fun(){
+            if(time === 0){
+                location.href = "https://github.com/Yangkro";
+                clearInterval(timer);
+            }else {
+                div.innerHTML = "您将在"+ time + "秒后跳转到我的GitHub";
+                // console.log(time);
+                time --;
+            }
+        }
+    </script>
+</body>
+</html>

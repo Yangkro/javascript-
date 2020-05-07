@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box {
+            position: relative;
+            height: 200px;
+            width: 150px;
+            background-color: red;
+            margin: 200px;
+            box-sizing: border-box;
+        }
+        .time {
+            display: flex;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+        }
+        span {
+            flex: 1;
+            height: 40px;
+            width: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            background-color: black;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="time">
+            <span class="hour">1</span>
+            <span class="minute">2</span>
+            <span class="second">3</span>
+        </div>
+    </div>
+    <script>
+        var hour = document.querySelector('.hour');
+        var minute = document.querySelector(".minute");
+        var second = document.querySelector('.second');
+        //定义一个活动结束时间
+        var inputTime = new Date("2020-5-8 00:00:00").getTime();
+        //因为定时器开启是在页面刷新以后，所以每次属性都会重置显示的内容为123，所以先调用一下函数countDown
+        countDown();
+        var  timer = setInterval(countDown, 1000);
+        function countDown(){
+            var nowTime = new Date().getTime();
+            lastTime = (inputTime - nowTime)/1000;//剩余时间的秒数;
+            // console.log(lastTime)
+            var h = parseInt(lastTime / 60 / 60 );
+            hour.innerHTML = h;
+            var m = parseInt(lastTime / 60 % 60);
+            minute.innerHTML = m;
+            var s = parseInt(lastTime % 60);
+            second.innerHTML = s;
+        }
+    </script>
+</body>
+</html>

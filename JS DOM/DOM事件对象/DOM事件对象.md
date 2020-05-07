@@ -48,9 +48,11 @@ if(!event){
 			}
 		};
     ```
+* type返回当前事件的名称
 #### 事件的冒泡
 事件的冒泡指的是事件会<font color="red">向上</font>传导，当后代元素的事件被触发时，其祖先<font color="red">相同</font>的事件也会被触发。如果不希望事件冒泡，可以通过事件对象来取消冒泡。
-* 事件冒泡的取消`event.cancleBubble = true`
+* 事件冒泡的取消
+兼容IE678使用`event.cancleBubble = true`。高版本浏览器使用event.stopPropagation()
 谁的事件不需要向上传导，就给谁添加。
 ```
 <style>
@@ -91,7 +93,7 @@ if(!event){
 将事件统一绑定为元素的共同祖先元素，这样当后代元素上的事件被触发时，会一直冒泡到祖先元素，从而通过祖先元素的响应来处理事件。
 事件委派是利用了事件的冒泡特性，通过事件委派可以减少事件的绑定次数，提高程序的性能。
 * event中的target来返回触发事件的对象
-对祖先绑定事件后，祖先的任意子元素都可以响应绑定的事件。使用target来过滤掉不需要作出响应的子元素
+对祖先绑定事件后，祖先的任意子元素都可以响应绑定的事件。使用target来过滤掉不需要作出响应的子元素。<font color="red">与this不同，this返回的绑定事件对象，而target返回的是触发事件的对象</font>兼容性问题：<font color="pink">在IE8及其以下的浏览器中只能使用event.srcElement来返回触发事件的对象</font>
 ```
 <script type="text/javascript">
 	window.onload = function(){
@@ -108,6 +110,7 @@ if(!event){
 	
 		//采用事件委派的方式，向其父元素添加点击响应函数，再过滤
 		ul.onclick = function(event) {
+			event.target = event.target || event.srcElement;
 			if(event.target.className == "link"){
 				alert(event.target.innerHTML);
 			}
@@ -170,6 +173,27 @@ if(!event){
 		}
 	}
 	```
+#### 事件的解除绑定
+* 传统事件的注册解绑方式
+直接将事件赋值为null`eventTarget.onclick = null`
+* 方法监听注册解绑方式
+	1. eventTarget.removeEventListener(evenStr, callback)
+	可以直接写在回调函数中，当事件触发一次后就被销毁
+	2. detachment(onevenStr, callback)只支持IE8及其以下
+	也可以写在回调函数中，使函数调用一次就被消除
+* 解除事件绑定的兼容性写法
+```
+function removeEventListener(obj, enentStr, callback){
+	//判断当前浏览器是否支持removeEventListener方法
+	if(obj.removeEventListener){
+		obj.removeEventListener(eventStr, callback);
+	}else if(obj.detachEvent){
+		obj.detachEvent("on" + eventStr, callback)
+	} else{
+		obj['on' + eventStr] = null
+	}
+}
+```
 #### 事件的传播
 微软公司认为事件是由内向外传播的，即当事件触发时，应该先触发当前元素上的操作，然后再向当前元素的祖先元素上传播，也就是说事件在冒泡的时候执行。网景公司认为事件应该是由内向外传播的，也就是说当前事件触发时，应该先触发当前元素的最外层的祖先元素事件，然后再向内传播给后代元素。 最后由W3C制定标准 
 * W3C将事件分为三个阶段
@@ -180,7 +204,10 @@ if(!event){
 	3. 冒泡阶段
 		- 事件从当前目标元素向他的祖先元素传递，依次触发祖先元素上的事件
 * 如果希望在捕获阶段就触发事件，可以将addEventListener()的第三个参数设置为true。但是一般用不到
-* <font color="pink">兼容性</font>：只兼容IE9及以上的浏览器，IE8及以下的浏览器中没有捕获阶段。 
+* <font color="pink">兼容性</font>：只兼容IE9及以上的浏览器，IE8及以下的浏览器中没有捕获阶段。
+* JS代码只能执行捕获或者冒泡的其中一个阶段
+* onclick和attachEent只能得到冒泡阶段 
+* 有些时间是没有冒泡的，比如onblur、onfocus、onmouseenter、onmouseleave等
 #### 鼠标事件
 * 鼠标按下onmousedown
 可以定义当鼠标按下时发生的事件
@@ -201,6 +228,19 @@ if(!event){
 		event.preventDefault && event.preventDefault();
 		//表示有就直接使用，没有就不使用
 		```
+* contextmenu显示右键菜单
+	```
+	<h2>一个人的一生应该是这样度过的：当他回首往事的时候，他不会因为虚度年华而悔恨，也不会因为碌碌无为而羞耻</h2>
+	<script type="text/javascript">
+		var text= document.querySelector("h2");
+		text.addEventListener("contextmenu", function(event){
+			event.preventDefault();
+			alert("不可以复制哦")
+		},false)
+	</script>
+* selectstart 选中文字
+可以阻止默认行为实现无法选中文字
+	```
 **示例：滚轮改变方块大小.html**
 #### 键盘事件
 键盘事件一般会绑定给一些可以获取到焦点的对象（表单）或者是document
@@ -208,8 +248,9 @@ if(!event){
 当按键被按着不松开的时候，事件会连续触发，但是第一次和第二次之间的间隔会长一点，其他的都很快。
 	* 在文本框中输入内容，输入onkeydown的默认行为，如果取消后默认行为，则输入的内容不会出现在文本框中。
 * onkeyup 按键松开
-不会连续触发，只会触发一次
+不会连续触发，只会触发一次。<font color="red">keyup事件触发时，文字已经落入文本框中</font>
 * keyCode和特殊按键属性 
 可以通过keyCode来获取被按下按键的编码。altKey、ctrlKey、shiftKey可以用来判断这些按键是否被按下（返回Boolean值），配合keycode来实现判断快捷键的使用。
-
+* keydown和keypress在文本框中的特点
+**他们两个事件触发的时候，文字还没有落入文本框中**
 
