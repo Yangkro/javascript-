@@ -72,29 +72,23 @@ function toggleClass(obj, cn) {
 	}
 };
 // 兼容各个浏览器的绑定函数
-function bind(obj, eventStr, callback){
-	if(obj.addEventListener) {
-		obj.addEvenListener(eventStr, callback, false);
-	} 
-	/*else{
-		obj.attachEvent("on"+eventStr, callback);
-	}*/
-	else{
-		//使用这种方法，可以使this指向事件绑定者obj
-		obj.attachEvent("on"+eventStr, function(){
-			//在匿名函数中调用回调函数
-			callback.call(obj);
-		});
+function bind(obj, eventStr, callback) {
+	if (obj.addEventListener) {
+		obj.addEventListener(eventStr, callback, false);
+	} else {
+		obj.attachEvent('on' + eventStr, function() {
+			callback.call(obj) //变成obj调用，使this指向obj
+		})
 	}
 }
 //兼容IE8的解除绑定函数
-function removeEventListener(obj, enentStr, callback){
+function removeEventListener(obj, enentStr, callback) {
 	//判断当前浏览器是否支持removeEventListener方法
-	if(obj.removeEventListener){
+	if (obj.removeEventListener) {
 		obj.removeEventListener(enentStr, callback);
-	}else if(obj.detachEvent){
+	} else if (obj.detachEvent) {
 		obj.detachEvent("on" + eventStr, callback)
-	} else{
+	} else {
 		obj['on' + eventStr] = null
 	}
 }

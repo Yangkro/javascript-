@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>仿京东放大镜效果</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		div {
+			box-sizing: border-box;
+		}
+		.preview {
+			position: relative;
+			top: 100px;
+			left: 50px;
+			height: 400px;
+			width: 400px;
+			border: 1px solid #DCDCDC;
+		}
+		.mask {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 200px;
+			width: 200px;
+			background-color: yellow;
+			opacity: 0.3;
+			cursor: move;
+		}
+		.big-img {
+			display: block;
+			position: relative;
+			left: 480px;
+			top: -300px;
+			height: 550px;
+			width: 550px;
+			border: 1px solid #DCDCDC;
+			overflow: hidden;
+		}
+		.big-img img {
+			position: absolute;
+			/* height: 100%;
+			width: 100%; */
+			/* left: 0;
+			top: 0; */
+		}
+	</style>
+</head>
+<body>
+	<div class="preview">
+		<img src="images/s3.png" >
+		<div class="mask"></div>
+	</div>
+	<div class="big-img">
+		<img src="images/big.jpg" id="bigImg">
+	</div>
+	<script type="text/javascript">
+		var phonePic = document.querySelector(".preview");
+		var mask = document.querySelector(".mask");
+		var img = document.getElementById("bigImg");
+		var bigImg = document.querySelector(".big-img");
+		var magnifyRate = bigImg.offsetHeight / phonePic.offsetHeight;
+		phonePic.addEventListener("mouseover", function(event){
+			mask.style.display = 'block';
+			bigImg.style.display = 'block';
+		});
+		phonePic.addEventListener("mouseout", function(event){
+			mask.style.display = 'none';
+			bigImg.style.display = 'none';
+		});
+		phonePic.addEventListener("mousemove", function(event){
+			//因为mask是相对于父元素phonePic定位
+			var x = event.pageX - (mask.offsetWidth / 2) - this.offsetLeft;
+			var y = event.pageY - (mask.offsetHeight / 2) - this.offsetTop;
+			if(x <= 0){
+				x = 0;
+			}else if(x >= phonePic.offsetWidth - mask.offsetWidth){
+				x = phonePic.offsetWidth - mask.offsetWidth;
+			}
+			if(y <= 0){
+				y = 0;
+			}else if(y > phonePic.offsetHeight - mask.offsetHeight){
+				y = phonePic.offsetHeight - mask.offsetHeight;
+			}
+			mask.style.left = x + 'px';
+			mask.style.top = y + 'px';
+			img.style.left = - magnifyRate * x + 'px';
+			img.style.top = - magnifyRate * y + 'px';
+		});
+	</script>
+</body>
+</html>

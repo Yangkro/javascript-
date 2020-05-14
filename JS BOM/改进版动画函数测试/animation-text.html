@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		.box{
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 100px;
+			width: 100px;
+			background-color: pink;
+			opacity: 0.1;
+		}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<script src="../定时器练习/自定义函数animation的应用/购物网站侧边导航栏/js/tool.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var box = document.querySelector(".box");
+		box.addEventListener("click", function(){
+			animation(box, {left: 200, height: 300, top: 200, opacity: 100, width: 200}, function(){
+				alert("hello");
+			})
+		});
+		function changeShape(obj,json,fn){
+		    var num = 0;//假设所有运动到达目标值，确保不会有一个停止之后导致其他运动停止（同步运动）
+			// console.log(Object.keys(json).length);
+			var total = Object.keys(json).length;
+			var flag = true;
+		    clearInterval(obj.timer);
+		    obj.timer=setInterval(function(){
+		        for(attr in json){//这是json调取的格式，可以自行学习下
+		        //这句话就是遍历其中属性
+		            var cur=0;
+		        if(attr=='opacity'){
+		        //先变成浮点数，再进行四舍五入，因为数字变为浮点数时计算机无法准确取得，所以需要四舍五入
+		            var cur=Math.round(parseFloat(getStyle(obj,attr))*100);
+		        }else{
+		            var cur=parseInt(getStyle(obj,attr))
+		        }
+		        //速度设定
+		        var speed=(json[attr]-cur)/10;
+		        speed=speed>0?Math.ceil(speed):Math.floor(speed);
+		        //运动判断
+				if( cur == json[attr]){
+					num ++;
+					delete json[attr];
+				}else{
+					flag = false;
+						if(attr=='opacity'){
+							obj.style.filter='alpha(opacity='+(cur+speed)+')'//兼容
+							obj.style.opacity=(cur+speed)/100;
+							console.log("透明度："+obj.style[attr], json[attr]);
+						}else{
+							obj.style[attr]=cur+speed+'px';
+							console.log(obj.style[attr], json[attr]);
+						}
+		            }
+		               
+		        }
+				console.log(num);
+				// console.log(flag)
+		        if(total == num){
+		            clearInterval(obj.timer)
+		            //回调函数，用来链式运动的，一个接着一个的运动
+		            if(fn){
+		                fn();
+		            }
+					console.log(Object.keys(json));
+					console.log(num)
+		        }
+		
+		    },30)
+		}
+	</script>
+</body>
+</html>

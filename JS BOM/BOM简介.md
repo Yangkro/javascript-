@@ -10,6 +10,12 @@ BOM（Browser Object Mode）浏览器对象模型。BOM可以使用JS来操作�
 window.onresize 只要窗口的大小发生改变就能出发该事件。
 * innerWidth获取window当前屏幕的宽度，可以利用这个来实现响应式布局
 * window定时器
+* onload 表示页面的所有内容包括样式表都已经加载完成，触发onload事件的规则如下：
+    * a标签的超链接，点击超链接后再跳转回来时会触发onload事件
+    * 刷新页面
+    * 前进后退按钮
+onload事件的兼容性：<font color="pink">不支持火狐浏览器</font>，在火狐浏览器中存在往返缓存机制，该机制在内存中保存了原页面的DOM和JS状态（实际上就是将整个页面保存在内存中），所以此时通过按钮回退前进不能刷新页面。
+* pageshow 该事件绑定给window。事件的触发规则为：<font color="red">当页面显示的时候触发，不管页面是否被刷新。pageshow会在load事件触发后触发；根据对象中的persisted来判断缓存中页面触发pageshow事件</font>
 ##### Navigator
 代表的是浏览器额信息，通过该对象可以识别不同的浏览器
 ##### Location

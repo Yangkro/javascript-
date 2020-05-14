@@ -77,7 +77,7 @@ console.log(getComputedStyle(box1, null).width);//200px
 * <font color="8b7500">offsetTop 获取当前元素的相对于其定位父元素的垂直偏移量</font>
 * <font color="8b7500">scrollWidth scrollHeight 获取元素的滚动宽度/高度</font>
 由于子元素可能超出父元素，当`overflow:auto;`设置滚动条的时候，可以获取子元素的整个滚动区域的高度或者宽度
-* <font color="8b7500">scrollLeft scrollTop 获取滚动条水平滚动或者垂直滚动的距离</font>
+* <font color="8b7500">scrollLeft scrollTop 获取滚动条水平滚动或者垂直滚动的距离</font>。兼容IE8及其以下的浏览器，当使用高版本的浏览器时可以使用window.pageX和window.pageY来获取滚动条的滚动距离
     * <font color="orange">当满足：scrollHeight - scrollTop == clientHeight的时候，说明垂直滚动条滚动到底了</font>
     * <font color="orange">当满足：scrollWidth - scrollLeft == clientWidth的时候，说明水平滚动条滚动到最右边了</font>
 

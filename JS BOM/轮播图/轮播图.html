@@ -37,7 +37,8 @@
 		#box2 {
 			position: absolute;
 			bottom: 20px;
-			/* left: 50%; */
+			left: 50%;
+			transform: translateX(-50%);
 		}
 		#box2 a {
 			float: left;
@@ -65,7 +66,8 @@
 			ul1.style.width = 910*imgArray.length + "px";
 			//获取导航栏
 			var box2 = document.getElementById("box2");
-			box2.style.left = (box1.offsetWidth - box2.offsetWidth)/2 + "px";
+			//将box2放在中间，下面这种写法可以兼容随时添加图片的问题，但是属性页面后样式会发生改变
+			// box2.style.left = (box1.offsetWidth - box2.offsetWidth)/2 + "px";
 			//获取所有的超链接
 			var allA = document.getElementsByTagName("a");
 			var index = 0;
@@ -78,7 +80,6 @@
 				allA[i].onclick = function(){
 					index = this.num;
 					//设置背景移动
-					// ul1.style.left = -910*index + "px";
 					//发生点击函数时，应该清楚之前的定时器动画
 					clearInterval(timer);
 					move(ul1, -910*index, 20, "left", function(){
@@ -111,7 +112,6 @@
 				for(var i = 0; i < allA.length; i++){
 					// 由于内联样式的优先级高，所以不要从新设置背景图片，否则会覆盖掉hover效果
 					allA[i].style.backgroundColor = "";
-					// allA[i].style.backgroundColor = "rgba(255,255,255,0.5)";
 				}
 				allA[index].style.backgroundColor = "orange";
 			}
@@ -136,6 +136,5 @@
 		<a href="javascript:;"></a>
 	</div>
 	</div>
-	
 </body>
 </html>
