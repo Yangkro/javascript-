@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="username"> <br>
+    <input type="password" id="psd"><br>
+    <label for="remember"><input type="checkbox" id="remember">记住用户名和密码</label><br>
+    <button>提交</button>
+    <script>
+        var text = document.getElementById("username");
+        var checkbox = document.getElementById("remember");
+        var password = document.querySelector("#psd");
+        var button = document.querySelector("button");
+        if(localStorage.getItem('uname')){
+            text.value = localStorage.getItem("uname");
+        }
+        button.onclick = function(){
+            if(checkbox.checked){
+                localStorage.setItem("uname", text.value);
+                localStorage.setItem("passowrd", password.value);
+            }else {
+                localStorage.removeItem("uname");
+                localStorage.removeItem("passowrd");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -80,4 +80,25 @@ console.log(getComputedStyle(box1, null).width);//200px
 * <font color="8b7500">scrollLeft scrollTop 获取滚动条水平滚动或者垂直滚动的距离</font>。兼容IE8及其以下的浏览器，当使用高版本的浏览器时可以使用window.pageX和window.pageY来获取滚动条的滚动距离
     * <font color="orange">当满足：scrollHeight - scrollTop == clientHeight的时候，说明垂直滚动条滚动到底了</font>
     * <font color="orange">当满足：scrollWidth - scrollLeft == clientWidth的时候，说明水平滚动条滚动到最右边了</font>
+##### 新增获取元素样式类的方法
+* classList 返回一个元素的样式类名集合
+    * 添加类名
+    `element.classList.add("name")`<font color="red">不要.</font>
+    * 删除类
+    `element.classList.remove("name)`<font color="red">不要.</font>
+    * 切换类
+    有则删除目标类，无则添加目标类`element.classList.toggle("name")`
+        ```
+        <div class="one two" id="div"></div>
+        <script>
+            var div = document.getElementById("div");
+            console.log(div.classList);//['one', 'two']
+            console.log(div.classList[0]);//"one"
+            //添加类名
+            div.classList.add("three");
+            //删除类
+            div.classList.remove("one");
+            //切换类名
+            div.classList.toggle("bg");
+        </script>
 
